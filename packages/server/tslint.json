@@ -1,0 +1,21 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-prettier",
+    "tslint-config-airbnb"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "dist",
+      "node_modules"
+    ]
+  },
+  "rules": {
+    "typedef": [
+      true,
+      "call-signature",
+      "object-destructuring",
+      "variable-declaration"
+    ]
+  }
+}
