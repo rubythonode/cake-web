@@ -1,0 +1,20 @@
+{
+  "name": "gotoroom-server",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/junhoyeo/gotoroom-server",
+  "author": "JunhoYeo <32605822+JunhoYeo@users.noreply.github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.7.13"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.2",
+    "@types/mongoose": "^5.5.32",
+    "@types/node": "^12.12.14",
+    "tslint": "^5.20.1",
+    "tslint-config-airbnb": "^5.11.2",
+    "typescript": "^3.7.2"
+  }
+}
