@@ -16,6 +16,7 @@
       "call-signature",
       "object-destructuring",
       "variable-declaration"
-    ]
+    ],
+    "no-boolean-literal-compare": false
   }
 }
