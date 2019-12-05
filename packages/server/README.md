@@ -27,9 +27,9 @@ yarn run dev
 ### Room
 ```js
 {
-  name: "고드름 팀 모임", // 방 이름
-  pin: "1234", // 방 입장 시 필요한 패스워드
-  date: Date(), // 사용할 날짜
+  name: '고드름 팀 모임', // 방 이름
+  pin: '1234', // 방 입장 시 필요한 패스워드
+  date: Date(), // 사용할 날짜
   time: 'afsc1', // 사용할 시간 ['afsc1', 'afsc2', 'night1', 'night2']
   max: 4, // 최대 참가 인원 수
   desc: '저희가요 교내 IT 공모전에 나가는데 오늘 코딩을 안하면 손에 가시가 돋아서 그만...', // 사유
@@ -46,6 +46,19 @@ yarn run dev
   - 대표자가 방에서 나가기 전에 예상되는 결과를 프론트엔드에서 사용자에게 알리고 확인을 받아야 합니다.
 
 ### User
+```js
+{
+  name: '여준호', // 이름
+  type: 'student', // 종류 ['student', 'teacher']
+  serial: '1520', // 학번
+  email: 'hanaro0704@naver.com', // 이메일
+  password: `${password}|${salt}`, // 해싱된 패스워드
+  image: 'https://github.com/junhoyeo.png', // 프로필 사진 URL
+  joined: new Date(), // 최초 연동일
+}
+```
+
+- 회원가입 절차 없이 바로 디미고 통합 아이디를 통해 로그인할 수 있도록 합니다.
 
 ## 🔥 Routes
 전체 API에 존재하는 라우트들입니다.
