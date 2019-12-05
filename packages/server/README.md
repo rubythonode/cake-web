@@ -36,7 +36,8 @@ yarn run dev
   delegate: '507f1f77bcf86cd799439011', // 신청 대표자
   users: [ // 신청한 사람들 ID 목록
     '507f1f77bcf86cd799439011'
-  ];
+  ],
+  created: new Date(), // 추가된 시간
 }
 ```
 
