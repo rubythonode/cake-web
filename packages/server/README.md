@@ -29,7 +29,7 @@ yarn run dev
 ### Room
 ```js
 {
-  name: '고드름 팀 모임', // 방 이름
+  name: '세미나실', // 방 이름
   pin: '1234', // 방 입장 시 필요한 패스워드
   date: Date(), // 사용할 날짜
   time: 'afsc1', // 사용할 시간 ['afsc1', 'afsc2', 'night1', 'night2']
