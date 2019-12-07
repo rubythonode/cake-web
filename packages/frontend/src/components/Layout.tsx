@@ -13,13 +13,14 @@ const Container = styled.div`
 `;
 
 type LayoutProps = {
+  tabIdx: number;
   children: React.ReactNode;
 };
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC<LayoutProps> = ({ tabIdx, children }) => {
   return (
     <Container>
-      <Header user={exampleUserData} />
+      <Header tabIdx={tabIdx} user={exampleUserData} />
       {children}
     </Container>
   );

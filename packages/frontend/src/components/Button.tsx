@@ -8,6 +8,7 @@ const StyledButton = styled.button`
   border-radius: 35px;
   color: white;
   background-image: linear-gradient(200deg, #fd7e14, #ff00aa);
+  cursor: pointer;
 `;
 
 interface IButtonProps {

@@ -1,19 +1,56 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import logo from '../assets/shared/logo.png';
 import logout from '../assets/shared/logout.svg';
 
 const Container = styled.header`
+  padding: 1rem 2rem;
+  box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.16);
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const Logo = styled.img`
+  height: 28px;
+  object-fit: contain;
+  cursor: pointer;
 `;
 
 const TabList = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const Tab = styled.span`
+type TabProps = {
+  current: boolean;
+};
+
+const Tab = styled.span<TabProps>`
+  font-size: 1.3rem;
+  line-height: 1.32;
+  letter-spacing: 2.13px;
+  margin-left: 4rem;
+  border-bottom: none;
+  position: relative;
+  cursor: pointer;
+
+  ${({ current }) => current && css`
+    padding-bottom: 8px;
+
+    &:after {
+      content: "";
+      width: 100%;
+      height: 2px;
+      display: block;
+      background-image: linear-gradient(91deg, #fd7e14 0%, #ff00aa 100%);
+      position: absolute;
+      bottom: 0;
+    }
+  `};
 `;
 
 interface IUserInfoProps {
@@ -24,14 +61,24 @@ interface IUserInfoProps {
   };
 }
 
+const UserContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const UserInfo: React.FC<IUserInfoProps> = ({ user: { grade, klass, name } }) => {
   const UserMeta = styled.span`
+    font-size: 1.2rem;
   `;
 
   const UserSerial = styled.span`
+    font-weight: 300;
+    margin-right: 0.5rem;
   `;
 
   const UserName = styled.span`
+    font-weight: 900;
+    margin-right: 1.1rem;
   `;
 
   return (
@@ -40,21 +87,38 @@ const UserInfo: React.FC<IUserInfoProps> = ({ user: { grade, klass, name } }) =>
       <UserName>{name}</UserName>
     </UserMeta>
   );
-}
+};
 
 const Logout = styled.img`
+  height: 1.3rem;
+  width: 1.3rem;
+  cursor: pointer;
 `;
 
-const Header: React.FC<IUserInfoProps> = ({ user }) => {
+interface IHeaderProps extends IUserInfoProps {
+  tabIdx: number;
+}
+
+const Header: React.FC<IHeaderProps> = ({ tabIdx, user }) => {
   return (
     <Container>
       <Logo src={logo} />
       <TabList>
-        <Tab>홈</Tab>
-        <Tab>사용 신청</Tab>
+        {['홈', '사용 신청'].map((tabName: string, idx: number) => {
+          return (
+            <Tab
+              current={idx === tabIdx}
+              key={`tab-${idx}`}
+            >
+              {tabName}
+            </Tab>
+          );
+        })}
       </TabList>
-      <UserInfo user={user} />
-      <Logout src={logout} />
+      <UserContainer>
+        <UserInfo user={user} />
+        <Logout src={logout} />
+      </UserContainer>
     </Container>
   );
 };
