@@ -1,10 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-const Container = styled.div``;
+const Container = styled.div`
+`;
 
 type LayoutProps = {
-  children: React.ReactNode | React.ReactNode[];
+  children: React.ReactNode;
 };
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
