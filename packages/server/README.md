@@ -1,10 +1,10 @@
-# Gotoroom Server [![Typed with TypeScript](https://badgen.net/badge/icon/Typed?icon=typescript&label&labelColor=555555&color=blue)](https://github.com/microsoft/TypeScript) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![Code Style](https://badgen.net/badge/style/Airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
-고투룸
+# Cake Server [![Typed with TypeScript](https://badgen.net/badge/icon/Typed?icon=typescript&label&labelColor=555555&color=blue)](https://github.com/microsoft/TypeScript) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![Code Style](https://badgen.net/badge/style/Airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
 
 ## 🚀 Run
 ```bash
 # 본 레포지토리를 클론합니다.
-git clone https://github.com/junhoyeo/gotoroom-server
+git clone https://github.com/junhoyeo/cake-web
+cd packages/server
 
 # yarn을 이용해 의존성을 설치합니다.
 yarn install
@@ -12,6 +12,8 @@ yarn install
 # 개발 서버를 실행합니다. 파일이 변경될 때마다 nodemon이 서버를 자동으로 재시작합니다.
 yarn run dev
 ```
+
+> TODO: lerna 활용하기
 
 ## 🎨 Styling conventions
 

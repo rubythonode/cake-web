@@ -1,5 +1,5 @@
 {
-  "name": "gotoroom-server",
+  "name": "server",
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,6 @@
     "dev": "tsc-watch --project . --outDir ./dist --onSuccess \"nodemon ./dist\"",
     "lint": "tslint src/**/*.ts --fix"
   },
-  "repository": "https://github.com/junhoyeo/gotoroom-server",
   "author": "JunhoYeo  <32605822+JunhoYeo@users.noreply.github.com>",
   "license": "MIT",
   "dependencies": {
