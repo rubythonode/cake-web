@@ -12,7 +12,6 @@ const Container = styled.div`
 `;
 
 const Illust: React.FC = () => {
-
   const IllustWrapper = styled.div`
     position: absolute;
     left: 0;
