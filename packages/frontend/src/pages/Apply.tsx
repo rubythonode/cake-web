@@ -11,6 +11,7 @@ const Title = styled.h1`
 `;
 
 const PlaceCardList = styled.div`
+  display: flex;
 `;
 
 type ApplyProps = {
