@@ -82,7 +82,7 @@ const PinTitle = styled.span`
 
 const SubmitButton = styled(Button)`
   margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
 `;
 
 export interface IRoomModalProps extends IModalProps {
