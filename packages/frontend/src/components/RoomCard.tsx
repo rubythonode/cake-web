@@ -1,13 +1,11 @@
-import { History } from 'history';
 import * as React from 'react';
-import { withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import Button from './Button';
 import Time from './Time';
 
 const Container = styled.div`
-  height: 290px;
+  height: 295px;
   width: 290px;
   border-radius: 23px;
   box-shadow: 0 3px 17px 0 rgba(0, 0, 0, 0.16);
@@ -15,7 +13,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 39px 0;
+  padding: 35px 0;
   position: relative;
 `;
 
@@ -31,9 +29,9 @@ const TimeList = styled.div`
 `;
 
 const Name = styled.h1`
-  font-size: 2.2rem;
+  font-size: 2.1rem;
   font-weight: 900;
-  margin-top: 0.8rem;
+  margin-top: 0.7rem;
   word-break: keep-all;
   line-height: 1.2;
 `;
@@ -54,7 +52,7 @@ const Desc = styled.p`
   line-height: 1.31;
   letter-spacing: 1.36px;
   margin: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 `;
 
 type StatusButtonProps = {
@@ -86,10 +84,10 @@ export interface IRoomCardProps {
   desc: string;
   current: number;
   max: number;
-  history?: History;
+  onClick?: (event: React.MouseEvent<HTMLElement>) => any;
 }
 
-const RoomCard: React.FC<IRoomCardProps> = ({ id, times, name, desc, current, max, history }) => {
+const RoomCard: React.FC<IRoomCardProps> = ({ id, times, name, desc, current, max, onClick }) => {
   return (
     <Container>
       <Wrapper>
@@ -105,7 +103,10 @@ const RoomCard: React.FC<IRoomCardProps> = ({ id, times, name, desc, current, ma
         <Name>{name}</Name>
         <BottomContainer>
           <Desc>{desc}</Desc>
-          <StatusButton full={current === max}>
+          <StatusButton
+            full={current === max}
+            onClick={onClick}
+          >
             {`${current} / ${max}`}
           </StatusButton>
         </BottomContainer>
@@ -114,4 +115,4 @@ const RoomCard: React.FC<IRoomCardProps> = ({ id, times, name, desc, current, ma
   );
 };
 
-export default withRouter(RoomCard as any);
+export default RoomCard;

@@ -145,37 +145,64 @@ const CardList = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(280px, auto));
 `;
 
-const Home: React.FC = () => {
-  return (
-    <Layout tabIdx={0}>
-      <Container>
-        <Header>
-          <Arrow src={goback} />
-          <Title>2019년 <Bold>12</Bold>월 <Bold>6</Bold>일</Title>
-          <Arrow src={gofront} />
-        </Header>
-        <Tools>
-          <Filter>
-            <FilterIcon src={filter} />
-            시간순 정렬
-          </Filter>
-          <Search>
-            <SearchIcon src={search} />
-            검색하기
-          </Search>
-        </Tools>
-        <CardList>
-          {exampleCardsData.map((room: IRoomCardProps, idx: number) =>
-            <RoomCard key={idx} {...room} />,
-          )}
-        </CardList>
-      </Container>
-      <RoomModal
-        isOpen={true}
-        room={exampleRoomData}
-      />
-    </Layout>
-  );
+type HomeState = {
+  openModal: boolean,
 };
 
-export default Home;
+export default class Home extends React.Component<{}, HomeState> {
+  constructor(props: any) {
+    super(props);
+
+    this.state = {
+      openModal: false,
+    };
+
+    this.onClickToggleModal = this.onClickToggleModal.bind(this);
+  }
+
+  public onClickToggleModal () {
+    this.setState(prevState => ({
+      openModal: !prevState.openModal,
+    }));
+  }
+
+  public render() {
+    const { openModal } = this.state;
+
+    return (
+      <Layout tabIdx={0}>
+        <Container>
+          <Header>
+            <Arrow src={goback} />
+            <Title>2019년 <Bold>12</Bold>월 <Bold>6</Bold>일</Title>
+            <Arrow src={gofront} />
+          </Header>
+          <Tools>
+            <Filter>
+              <FilterIcon src={filter} />
+              시간순 정렬
+            </Filter>
+            <Search>
+              <SearchIcon src={search} />
+              검색하기
+            </Search>
+          </Tools>
+          <CardList>
+            {exampleCardsData.map((room: IRoomCardProps, idx: number) =>
+              <RoomCard
+                key={idx}
+                onClick={this.onClickToggleModal}
+                {...room}
+              />,
+            )}
+          </CardList>
+        </Container>
+        <RoomModal
+          isOpen={openModal}
+          onRequestClose={this.onClickToggleModal}
+          room={exampleRoomData}
+        />
+      </Layout>
+    );
+  }
+}
