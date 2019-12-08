@@ -29,6 +29,7 @@ const GoBack = styled.img`
   width: 18px;
   height: 34.7px;
   object-fit: contain;
+  cursor: pointer;
 `;
 
 const SubmitButton = styled(Button)`
