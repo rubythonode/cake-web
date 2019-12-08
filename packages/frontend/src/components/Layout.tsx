@@ -12,6 +12,13 @@ const exampleUserData = {
 const Container = styled.div`
 `;
 
+const Content = styled.main`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2.8rem;
+`;
+
 type LayoutProps = {
   tabIdx: number;
   children: React.ReactNode;
@@ -21,7 +28,9 @@ const Layout: React.FC<LayoutProps> = ({ tabIdx, children }) => {
   return (
     <Container>
       <Header tabIdx={tabIdx} user={exampleUserData} />
-      {children}
+      <Content>
+        {children}
+      </Content>
     </Container>
   );
 };

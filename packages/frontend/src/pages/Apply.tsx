@@ -5,11 +5,9 @@ import Layout from '../components/Layout';
 import PlaceCard from '../components/PlaceCard';
 import Title from '../components/Title';
 
-const Container = styled.div`
-`;
-
 const PlaceCardList = styled.div`
   display: flex;
+  margin-top: 4.5rem;
 `;
 
 type ApplyProps = {
@@ -28,13 +26,11 @@ export default class Apply extends React.Component<ApplyProps, ApplyState> {
   public render() {
     return (
       <Layout tabIdx={1}>
-        <Container>
-          <Title>공간 선택</Title>
-          <PlaceCardList>
-            <PlaceCard name="본관" image="main.png" />
-            <PlaceCard name="신관" image="new.png" />
-          </PlaceCardList>
-        </Container>
+        <Title>공간 선택</Title>
+        <PlaceCardList>
+          <PlaceCard name="본관" image="main.png" />
+          <PlaceCard name="신관" image="new.png" />
+        </PlaceCardList>
       </Layout>
     );
   }

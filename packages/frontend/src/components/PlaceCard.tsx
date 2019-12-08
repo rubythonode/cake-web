@@ -10,6 +10,11 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: fit-content;
+  cursor: pointer;
+
+  &:not(:last-child) {
+    margin-right: 6.5rem;
+  }
 `;
 
 const Name = styled.h1`
