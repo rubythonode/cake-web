@@ -2,8 +2,9 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
-  padding: 0.9rem 0;
-  font-size: 1rem;
+  padding: 1rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
   width: 100%;
   border-radius: 35px;
   color: white;

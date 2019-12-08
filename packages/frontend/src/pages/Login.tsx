@@ -124,7 +124,6 @@ const StyledTextInput = styled(TextInput)`
 `;
 
 const SubmitButton = styled(Button)`
-  font-weight: 900;
   margin-bottom: 3rem;
 `;
 

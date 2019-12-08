@@ -6,8 +6,8 @@ import styled, { css } from 'styled-components';
 import Button from './Button';
 
 const Container = styled.div`
-  height: 320px;
-  width: 320px;
+  height: 290px;
+  width: 290px;
   border-radius: 23px;
   box-shadow: 0 3px 17px 0 rgba(0, 0, 0, 0.16);
   background-color: #ffffff;

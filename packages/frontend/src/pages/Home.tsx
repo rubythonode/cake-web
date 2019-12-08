@@ -136,7 +136,7 @@ const CardList = styled.div`
   display: grid;
   grid-column-gap: 1.5rem;
   grid-row-gap: 1.5rem;
-  grid-template-columns: repeat(auto-fill, minmax(320px, auto));
+  grid-template-columns: repeat(auto-fill, minmax(280px, auto));
 `;
 
 const Home: React.FC = () => {
