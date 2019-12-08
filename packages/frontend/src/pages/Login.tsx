@@ -52,6 +52,7 @@ const Illust: React.FC = () => {
     width: 163px;
     height: 184px;
     object-fit: contain;
+    margin-bottom: 3.5rem;
   `;
 
   const Desc = styled.span`
