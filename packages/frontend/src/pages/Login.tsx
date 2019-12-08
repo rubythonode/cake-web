@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Button from '../components/Button';
@@ -127,25 +128,48 @@ const SubmitButton = styled(Button)`
   margin-bottom: 3rem;
 `;
 
-const Login: React.FC = () => {
-  return (
-    <Container>
-      <Illust />
-      <FormWrapper>
-        <Form>
-          <FormTitle>로그인</FormTitle>
-          <Separator />
-          <InputGroup>
-            <StyledTextInput placeholder="ENTER YOUR EMAIL" />
-            <StyledTextInput placeholder="ENTER YOUR PASSWORD" />
-          </InputGroup>
-          <SubmitButton>
-            로그인
-          </SubmitButton>
-        </Form>
-      </FormWrapper>
-    </Container>
-  );
+type ILoginState = {
+  email: string;
+  password: string;
 };
 
-export default Login;
+class Login extends React.Component<RouteComponentProps, ILoginState> {
+  constructor(props: RouteComponentProps) {
+    super(props);
+
+    this.state = {
+      email: '',
+      password: '',
+    };
+
+    this.onClickSubmit = this.onClickSubmit.bind(this);
+  }
+
+  public onClickSubmit() {
+    const { history } = this.props;
+    history.push('/');
+  }
+
+  public render() {
+    return (
+      <Container>
+        <Illust />
+        <FormWrapper>
+          <Form>
+            <FormTitle>로그인</FormTitle>
+            <Separator />
+            <InputGroup>
+              <StyledTextInput placeholder="ENTER YOUR EMAIL" />
+              <StyledTextInput placeholder="ENTER YOUR PASSWORD" />
+            </InputGroup>
+            <SubmitButton onClick={this.onClickSubmit}>
+              로그인
+            </SubmitButton>
+          </Form>
+        </FormWrapper>
+      </Container>
+    );
+  }
+}
+
+export default withRouter<RouteComponentProps<any>, any>(Login);

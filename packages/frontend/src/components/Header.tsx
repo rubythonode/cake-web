@@ -67,6 +67,16 @@ const UserContainer = styled.div`
   align-items: center;
 `;
 
+interface ITab {
+  name: string;
+  route: string;
+}
+
+const tabs: ITab[] = [
+  { name: '홈', route: '/' },
+  { name: '사용 신청', route: '/apply' },
+];
+
 const UserInfo: React.FC<IUserInfoProps> = ({ user: { grade, klass, name } }) => {
   const UserMeta = styled.span`
     font-size: 1.2rem;
@@ -103,15 +113,16 @@ interface IHeaderProps extends IUserInfoProps {
 const Header: React.FC<IHeaderProps & RouteComponentProps> = ({ tabIdx, user, history }) => {
   return (
     <Container>
-      <Logo src={logo} />
+      <Logo src={logo} onClick={() => history.push('/')} />
       <TabList>
-        {['홈', '사용 신청'].map((tabName: string, idx: number) => {
+        {tabs.map((tab: ITab, idx: number) => {
           return (
             <Tab
               current={idx === tabIdx}
+              onClick={() => history.push(tab.route)}
               key={`tab-${idx}`}
             >
-              {tabName}
+              {tab.name}
             </Tab>
           );
         })}
