@@ -1,7 +1,7 @@
 import { History } from 'history';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import Button from './Button';
 
@@ -32,7 +32,7 @@ const TimeList = styled.div`
 const Time = styled.span`
   border-radius: 37px;
   border: solid 1px #505050;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 300;
   line-height: 1.31;
   letter-spacing: 1.36px;
@@ -45,7 +45,7 @@ const Time = styled.span`
 `;
 
 const Name = styled.h1`
-  font-size: 35px;
+  font-size: 2.2rem;
   font-weight: 900;
   margin-top: 0.8rem;
   word-break: keep-all;
@@ -63,7 +63,7 @@ const BottomContainer = styled.div`
 `;
 
 const Desc = styled.p`
-  font-size: 16px;
+  font-size: 0.95rem;
   font-weight: 300;
   line-height: 1.31;
   letter-spacing: 1.36px;
@@ -71,7 +71,11 @@ const Desc = styled.p`
   margin-bottom: 1.5rem;
 `;
 
-const StatusButton = styled(Button)`
+type StatusButtonProps = {
+  full: boolean;
+};
+
+const StatusButton = styled(Button)<StatusButtonProps>`
   font-size: 24px;
   font-weight: 300;
   letter-spacing: 8px;
@@ -80,6 +84,13 @@ const StatusButton = styled(Button)`
   height: 61px;
   margin: 0 auto;
   line-height: 1;
+
+  ${({ full }) => full && css`
+    border-radius: 37px;
+    border: solid 1px #ff00aa;
+    background: #ffffff !important;
+    color: #ff00aa;
+  `}
 `;
 
 export interface IRoomCardProps {
@@ -108,7 +119,9 @@ const RoomCard: React.FC<IRoomCardProps> = ({ id, times, name, desc, current, ma
         <Name>{name}</Name>
         <BottomContainer>
           <Desc>{desc}</Desc>
-          <StatusButton>{`${current} / ${max}`}</StatusButton>
+          <StatusButton full={current === max}>
+            {`${current} / ${max}`}
+          </StatusButton>
         </BottomContainer>
       </Wrapper>
     </Container>

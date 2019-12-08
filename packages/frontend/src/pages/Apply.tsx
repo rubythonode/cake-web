@@ -9,6 +9,14 @@ import Title from '../components/Title';
 
 import goback from '../assets/shared/goback.svg';
 
+const Container = styled.div`
+  height: calc(100vh - 66.6319px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const StepTitle = styled(Title)`
   width: 100%;
   position: relative;
@@ -92,7 +100,8 @@ export default class Apply extends React.Component<ApplyProps, ApplyState> {
     const { step } = this.state;
     return (
       <Layout tabIdx={1}>
-        <Switch condition={step}>
+        <Container>
+          <Switch condition={step}>
           <Case value={0}>
             <Title>공간 선택</Title>
             <PlaceCardList>
@@ -127,6 +136,7 @@ export default class Apply extends React.Component<ApplyProps, ApplyState> {
             </SubmitButton>
           </Default>
         </Switch>
+        </Container>
       </Layout>
     );
   }

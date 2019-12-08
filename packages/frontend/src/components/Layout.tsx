@@ -10,6 +10,7 @@ const exampleUserData = {
 };
 
 const Container = styled.div`
+  background-color: #f6f5f5;
 `;
 
 const Content = styled.main`
