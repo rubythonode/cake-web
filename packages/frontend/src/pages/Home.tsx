@@ -58,12 +58,28 @@ const exampleCardsData: IRoomCardProps[] = [
 const Container = styled.div`
   width: 86%;
   margin-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Title = styled.h1`
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  width: fit-content;
+  font-size: 49px;
+  font-weight: normal;
+  line-height: 1.31;
+  letter-spacing: 4.17px;
+  margin: 1rem 0;
+  margin-bottom: 2rem;
+`;
+
+const Bold = styled.span`
+  font-weight: 900;
 `;
 
 const Tools = styled.span`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   font-size: 1.2rem;
@@ -77,6 +93,7 @@ const Search = styled.span`
 `;
 
 const CardList = styled.div`
+  width: 100%;
   display: grid;
   grid-column-gap: 1.5rem;
   grid-row-gap: 1.5rem;
@@ -87,7 +104,7 @@ const Home: React.FC = () => {
   return (
     <Layout tabIdx={0}>
       <Container>
-        <Title>2019년 12월 6일</Title>
+        <Title>2019년 <Bold>12</Bold>월 <Bold>6</Bold>일</Title>
         <Tools>
           <Filter>시간순 정렬</Filter>
           <Search>검색하기</Search>
