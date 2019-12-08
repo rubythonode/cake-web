@@ -8829,6 +8829,11 @@ react-scripts@3.3.0:
   optionalDependencies:
     fsevents "2.1.2"
 
+react-switch-case@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/react-switch-case/-/react-switch-case-1.5.0.tgz#e0f95f539f29e8a92014369b390daf679a9831bf"
+  integrity sha512-JjmsIxsi8M7NLvDhManc/1xHmPNXTsZ/kX9bNY7mzLVFOQFr3zH5j8kwiZDY1yTMpu/SyAJkj0+N4gbf6xydGA==
+
 react@^16.12.0:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
