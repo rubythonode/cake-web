@@ -1,14 +1,24 @@
 import * as React from 'react';
+import PinInput from 'react-pin-input';
 import styled from 'styled-components';
 
+import Button from './Button';
 import Modal, { IModalProps } from './Modal';
 import Time from './Time';
+
+const pinStyle: object = {
+  border: 'solid 1px #505050',
+  borderRadius: '7px',
+  height: '52px',
+  margin: '0 3.5px',
+  width: '42px',
+};
 
 const Header = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 597px;
+  width: 520px;
   border-bottom: solid 1px #505050;
   padding-bottom: 1rem;
 `;
@@ -49,9 +59,30 @@ const Desc = styled.p`
   font-weight: 300;
   text-align: center;
   margin: 0;
+  margin-bottom: 2.5rem;
   letter-spacing: 1.96px;
   padding-left: 1.96px;
   word-break: keep-all;
+`;
+
+const PinContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const PinTitle = styled.span`
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 5.66px;
+  padding-left: 5.66px;
+  margin-bottom: 0.8rem;
+`;
+
+const SubmitButton = styled(Button)`
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
 `;
 
 export interface IRoomModalProps extends IModalProps {
@@ -77,6 +108,14 @@ const RoomModal: React.FC<IRoomModalProps> = ({ isOpen, onAfterOpen, onRequestCl
       <Main>
         <Delegate>{`대표자: ${delegate}`}</Delegate>
         <Desc dangerouslySetInnerHTML={ { __html: desc.replace(/(\n)+/g, '<br />') } } />
+        <PinContainer>
+          <PinTitle>PIN</PinTitle>
+          <PinInput
+            length={4}
+            inputStyle={pinStyle}
+          />
+          <SubmitButton>참여하기</SubmitButton>
+        </PinContainer>
       </Main>
     </Modal>
   );

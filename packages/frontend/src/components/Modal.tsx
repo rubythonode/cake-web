@@ -8,6 +8,7 @@ type IModalStyles = {
 
 const ModalStyles: IModalStyles = {
   content: {
+    borderRadius: '23px',
     overflow: 'unset',
     position: 'unset',
   },
