@@ -4,6 +4,11 @@ import styled from 'styled-components';
 import Layout from '../components/Layout';
 import RoomCard, { IRoomCardProps } from '../components/RoomCard';
 
+import filter from '../assets/shared/filter.svg';
+import goback from '../assets/shared/goback.svg';
+import gofront from '../assets/shared/gofront.svg';
+import search from '../assets/shared/search.svg';
+
 const exampleCardsData: IRoomCardProps[] = [
   {
     current: 2,
@@ -63,14 +68,28 @@ const Container = styled.div`
   align-items: center;
 `;
 
+const Header = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Arrow = styled.img`
+  width: 20px;
+  height: 46px;
+  object-fit: contain;
+  object-position: top;
+  cursor: pointer;
+`;
+
 const Title = styled.h1`
   text-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   width: fit-content;
-  font-size: 49px;
+  font-size: 2.9rem;
   font-weight: normal;
   line-height: 1.31;
   letter-spacing: 4.17px;
-  margin: 1rem 0;
+  margin: 1rem 5rem;
   margin-bottom: 2rem;
 `;
 
@@ -87,9 +106,29 @@ const Tools = styled.span`
 `;
 
 const Filter = styled.span`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
+const FilterIcon = styled.img`
+  width: 17px;
+  height: 15px;
+  object-fit: contain;
+  margin-right: 0.8rem;
 `;
 
 const Search = styled.span`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
+const SearchIcon = styled.img`
+  width: 22.6px;
+  height: 23.4px;
+  object-fit: contain;
+  margin-right: 0.8rem;
 `;
 
 const CardList = styled.div`
@@ -104,10 +143,20 @@ const Home: React.FC = () => {
   return (
     <Layout tabIdx={0}>
       <Container>
-        <Title>2019년 <Bold>12</Bold>월 <Bold>6</Bold>일</Title>
+        <Header>
+          <Arrow src={goback} />
+          <Title>2019년 <Bold>12</Bold>월 <Bold>6</Bold>일</Title>
+          <Arrow src={gofront} />
+        </Header>
         <Tools>
-          <Filter>시간순 정렬</Filter>
-          <Search>검색하기</Search>
+          <Filter>
+            <FilterIcon src={filter} />
+            시간순 정렬
+          </Filter>
+          <Search>
+            <SearchIcon src={search} />
+            검색하기
+          </Search>
         </Tools>
         <CardList>
           {exampleCardsData.map((room: IRoomCardProps, idx: number) =>
