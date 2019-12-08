@@ -3,11 +3,9 @@ import styled from 'styled-components';
 
 import Layout from '../components/Layout';
 import PlaceCard from '../components/PlaceCard';
+import Title from '../components/Title';
 
 const Container = styled.div`
-`;
-
-const Title = styled.h1`
 `;
 
 const PlaceCardList = styled.div`

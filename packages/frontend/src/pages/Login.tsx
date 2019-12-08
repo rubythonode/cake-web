@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
+import Title from '../components/Title';
 
 import loginIllust from '../assets/login/illust.png';
 import logo from '../assets/login/logo.png';
@@ -94,10 +95,11 @@ const Form = styled.form`
   align-items: center;
 `;
 
-const Title = styled.h1`
-  font-size: 2.3rem;
+const FormTitle = styled(Title)`
   text-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
-  font-weight: 900;
+  font-size: 2.3rem;
+  letter-spacing: 0;
+  padding-left: 0;
 `;
 
 const Separator = styled.div`
@@ -131,7 +133,7 @@ const Login: React.FC = () => {
       <Illust />
       <FormWrapper>
         <Form>
-          <Title>로그인</Title>
+          <FormTitle>로그인</FormTitle>
           <Separator />
           <InputGroup>
             <StyledTextInput placeholder="ENTER YOUR EMAIL" />
