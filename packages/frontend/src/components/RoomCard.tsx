@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import Button from './Button';
+import Time from './Time';
 
 const Container = styled.div`
   height: 290px;
@@ -27,21 +28,6 @@ const Wrapper = styled.div`
 `;
 
 const TimeList = styled.div`
-`;
-
-const Time = styled.span`
-  border-radius: 37px;
-  border: solid 1px #505050;
-  font-size: 1rem;
-  font-weight: 300;
-  line-height: 1.31;
-  letter-spacing: 1.36px;
-  color: #505050;
-  padding: 0.2rem 0.8rem;
-
-  &:not(:last-child) {
-    margin-right: 0.5rem;
-  }
 `;
 
 const Name = styled.h1`

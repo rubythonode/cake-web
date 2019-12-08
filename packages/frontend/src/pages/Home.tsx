@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import Layout from '../components/Layout';
 import RoomCard, { IRoomCardProps } from '../components/RoomCard';
+import RoomModal from '../components/RoomModal';
 
 import filter from '../assets/shared/filter.svg';
 import goback from '../assets/shared/goback.svg';
@@ -59,6 +60,11 @@ const exampleCardsData: IRoomCardProps[] = [
     times: ['야자 1타임'],
   },
 ];
+
+const exampleRoomData = {
+  delegate: '이혜원',
+  desc: '교내에서 진행하는 창의 IT대회를 준비하기 위해 사용합니다.\n민승현, 변경민, 여준호\n빨리 참가하세요~!!!!\n비밀번호는 톡방에 올려뒀어요~~',
+};
 
 const Container = styled.div`
   width: 86%;
@@ -164,6 +170,10 @@ const Home: React.FC = () => {
           )}
         </CardList>
       </Container>
+      <RoomModal
+        isOpen={true}
+        room={exampleRoomData}
+      />
     </Layout>
   );
 };
