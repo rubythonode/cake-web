@@ -1,4 +1,6 @@
+import { History } from 'history';
 import * as React from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Button from './Button';
@@ -11,9 +13,9 @@ const Container = styled.div`
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   padding: 39px 0;
+  position: relative;
 `;
 
 const Wrapper = styled.div`
@@ -35,13 +37,29 @@ const Time = styled.span`
   line-height: 1.31;
   letter-spacing: 1.36px;
   color: #505050;
-  padding: 0.2rem 1.1rem;
+  padding: 0.2rem 0.8rem;
+
+  &:not(:last-child) {
+    margin-right: 0.5rem;
+  }
 `;
 
 const Name = styled.h1`
-  font-size: 39px;
+  font-size: 35px;
   font-weight: 900;
-  margin-top: 7px;
+  margin-top: 0.8rem;
+  word-break: keep-all;
+  line-height: 1.2;
+`;
+
+const BottomContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 39px;
+  left: 0;
+  right: 0;
+  align-items: center;
 `;
 
 const Desc = styled.p`
@@ -49,28 +67,32 @@ const Desc = styled.p`
   font-weight: 300;
   line-height: 1.31;
   letter-spacing: 1.36px;
+  margin: 0;
+  margin-bottom: 1.5rem;
 `;
 
 const StatusButton = styled(Button)`
   font-size: 24px;
   font-weight: 300;
-  letter-spacing: 12px;
-  padding-left: 12px;
+  letter-spacing: 8px;
+  padding-left: 8px;
   width: 173px;
   height: 61px;
   margin: 0 auto;
+  line-height: 1;
 `;
 
-export type IRoomCardProps = {
+export interface IRoomCardProps {
   id: string;
   times: string[];
   name: string;
   desc: string;
   current: number;
   max: number;
-};
+  history?: History;
+}
 
-const RoomCard: React.FC<IRoomCardProps> = ({ id, times, name, desc, current, max }) => {
+const RoomCard: React.FC<IRoomCardProps> = ({ id, times, name, desc, current, max, history }) => {
   return (
     <Container>
       <Wrapper>
@@ -84,11 +106,13 @@ const RoomCard: React.FC<IRoomCardProps> = ({ id, times, name, desc, current, ma
           })}
         </TimeList>
         <Name>{name}</Name>
-        <Desc>{desc}</Desc>
-        <StatusButton>{`${current} / ${max}`}</StatusButton>
+        <BottomContainer>
+          <Desc>{desc}</Desc>
+          <StatusButton>{`${current} / ${max}`}</StatusButton>
+        </BottomContainer>
       </Wrapper>
     </Container>
   );
 };
 
-export default RoomCard;
+export default withRouter(RoomCard as any);

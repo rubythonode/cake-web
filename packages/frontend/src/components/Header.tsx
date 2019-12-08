@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import logo from '../assets/shared/logo.png';
@@ -99,7 +100,7 @@ interface IHeaderProps extends IUserInfoProps {
   tabIdx: number;
 }
 
-const Header: React.FC<IHeaderProps> = ({ tabIdx, user }) => {
+const Header: React.FC<IHeaderProps & RouteComponentProps> = ({ tabIdx, user, history }) => {
   return (
     <Container>
       <Logo src={logo} />
@@ -117,10 +118,10 @@ const Header: React.FC<IHeaderProps> = ({ tabIdx, user }) => {
       </TabList>
       <UserContainer>
         <UserInfo user={user} />
-        <Logout src={logout} />
+        <Logout src={logout} onClick={() => history.push('/login')} />
       </UserContainer>
     </Container>
   );
 };
 
-export default Header;
+export default withRouter<IHeaderProps & RouteComponentProps<any>, any>(Header as any);
