@@ -35,7 +35,7 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://junhoyeo.github.io/cake-web",
+  "homepage": "http://cake.junhoyeo.xyz/",
   "devDependencies": {
     "gh-pages": "^2.1.1"
   }
