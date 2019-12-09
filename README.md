@@ -2,3 +2,7 @@
 > 스마트한 공간 사용의 시작, CAKE
 
 [Lerna](https://github.com/lerna/lerna) 모노레포를 사용해서 [서버](./packages/server)와 [웹 클라이언트](./packages/frontend)를 관리합니다.
+
+## Related
+- [🧁 하드웨어](https://github.com/Changemin/Cake-hardware)
+- [🎂 모바일 앱](https://github.com/MinSeungHyun/Cake)
