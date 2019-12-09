@@ -12,7 +12,7 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 
-interface IButtonProps {
+export interface IButtonProps {
   className?: string;
   children?: React.ReactNode;
   onClick?: (event: React.MouseEvent<HTMLElement>) => any;

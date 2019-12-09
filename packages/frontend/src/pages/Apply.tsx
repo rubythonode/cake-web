@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import Button from '../components/Button';
 import Layout from '../components/Layout';
+import NumberInput from '../components/NumberInput';
 import PlaceCard from '../components/PlaceCard';
 import Title from '../components/Title';
 
@@ -44,6 +45,38 @@ const SubmitButton = styled(Button)`
   width: 377px;
 `;
 
+const Form = styled.div`
+  width: 80%;
+  padding: 2.5rem 3.8rem;
+  border-radius: 23px;
+  box-shadow: 0 3px 17px 0 rgba(0, 0, 0, 0.16);
+  background-color: #ffffff;
+  margin-top: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const FormRow = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const FormField = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const FormName = styled.h2`
+`;
+
+const FormValue = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+`;
+
 type ApplyProps = {
 
 };
@@ -61,7 +94,7 @@ export default class Apply extends React.Component<ApplyProps, ApplyState> {
     this.state = {
       location: '',
       room: '',
-      step: 0,
+      step: 2,
     };
 
     this.onClickBack = this.onClickBack.bind(this);
@@ -131,9 +164,40 @@ export default class Apply extends React.Component<ApplyProps, ApplyState> {
               <GoBack src={goback} onClick={this.onClickBack} />
               사용 신청서 작성
             </StepTitle>
-            <SubmitButton>
-              신청하기
-            </SubmitButton>
+            <Form>
+              <FormRow>
+                <FormField>
+                  <FormName>날짜</FormName>
+                  <FormValue>
+                    <NumberInput value={2019} />년&nbsp;
+                    <NumberInput value={1} />월&nbsp;
+                    <NumberInput value={1} />일
+                  </FormValue>
+                </FormField>
+                <FormField>
+                  <FormName>시간</FormName>
+                </FormField>
+              </FormRow>
+              <FormRow>
+                <FormField>
+                  <FormName>대표자</FormName>
+                </FormField>
+                <FormField>
+                  <FormName>이용자 수</FormName>
+                </FormField>
+                <FormField>
+                  <FormName>방 이름</FormName>
+                </FormField>
+              </FormRow>
+              <FormRow>
+                <FormField>
+                  <FormName>신청 목적</FormName>
+                </FormField>
+              </FormRow>
+              <SubmitButton>
+                신청하기
+              </SubmitButton>
+            </Form>
           </Default>
         </Switch>
         </Container>
