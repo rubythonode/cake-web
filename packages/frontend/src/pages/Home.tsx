@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
+import DialogModal from '../components/DialogModal';
 import Layout from '../components/Layout';
 import RoomCard, { IRoomCardProps } from '../components/RoomCard';
 import RoomModal from '../components/RoomModal';
@@ -146,6 +147,7 @@ const CardList = styled.div`
 `;
 
 type HomeState = {
+  openDialog: boolean,
   openModal: boolean,
 };
 
@@ -154,20 +156,34 @@ export default class Home extends React.Component<{}, HomeState> {
     super(props);
 
     this.state = {
+      openDialog: false,
       openModal: false,
     };
 
-    this.onClickToggleModal = this.onClickToggleModal.bind(this);
+    this.onClickApply = this.onClickApply.bind(this);
+    this.onToggleDialog = this.onToggleDialog.bind(this);
+    this.onToggleModal = this.onToggleModal.bind(this);
   }
 
-  public onClickToggleModal () {
+  public onClickApply() {
+    this.onToggleModal();
+    this.onToggleDialog();
+  }
+
+  public onToggleDialog() {
+    this.setState(prevState => ({
+      openDialog: !prevState.openDialog,
+    }));
+  }
+
+  public onToggleModal() {
     this.setState(prevState => ({
       openModal: !prevState.openModal,
     }));
   }
 
   public render() {
-    const { openModal } = this.state;
+    const { openDialog, openModal } = this.state;
 
     return (
       <Layout tabIdx={0}>
@@ -191,7 +207,7 @@ export default class Home extends React.Component<{}, HomeState> {
             {exampleCardsData.map((room: IRoomCardProps, idx: number) =>
               <RoomCard
                 key={idx}
-                onClick={this.onClickToggleModal}
+                onClick={this.onToggleModal}
                 {...room}
               />,
             )}
@@ -199,8 +215,14 @@ export default class Home extends React.Component<{}, HomeState> {
         </Container>
         <RoomModal
           isOpen={openModal}
-          onRequestClose={this.onClickToggleModal}
+          onClick={this.onClickApply}
+          onRequestClose={this.onToggleModal}
           room={exampleRoomData}
+        />
+        <DialogModal
+          isOpen={openDialog}
+          onRequestClose={this.onToggleDialog}
+          message="참가 되었습니다."
         />
       </Layout>
     );

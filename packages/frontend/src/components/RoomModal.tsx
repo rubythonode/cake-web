@@ -90,35 +90,37 @@ export interface IRoomModalProps extends IModalProps {
     delegate: string;
     desc: string;
   };
+  onClick?: (event: React.MouseEvent<HTMLElement>) => any;
 }
 
-const RoomModal: React.FC<IRoomModalProps> = ({ isOpen, onAfterOpen, onRequestClose, room }) => {
-  const { delegate, desc } = room;
-  return (
-    <Modal
-      isOpen={isOpen}
-      onAfterOpen={onAfterOpen}
-      onRequestClose={onRequestClose}
-    >
-      <Header>
-        <Time>방과후 1타임</Time>
-        <Name>방과후 교실</Name>
-        <Status>현 2명 / 총 4명</Status>
-      </Header>
-      <Main>
-        <Delegate>{`대표자: ${delegate}`}</Delegate>
-        <Desc dangerouslySetInnerHTML={ { __html: desc.replace(/(\n)+/g, '<br />') } } />
-        <PinContainer>
-          <PinTitle>PIN</PinTitle>
-          <PinInput
-            length={4}
-            inputStyle={pinStyle}
-          />
-          <SubmitButton>참여하기</SubmitButton>
-        </PinContainer>
-      </Main>
-    </Modal>
-  );
-};
+const RoomModal: React.FC<IRoomModalProps> =
+  ({ isOpen, onAfterOpen, onRequestClose, room, onClick }) => {
+    const { delegate, desc } = room;
+    return (
+      <Modal
+        isOpen={isOpen}
+        onAfterOpen={onAfterOpen}
+        onRequestClose={onRequestClose}
+      >
+        <Header>
+          <Time>방과후 1타임</Time>
+          <Name>방과후 교실</Name>
+          <Status>현 2명 / 총 4명</Status>
+        </Header>
+        <Main>
+          <Delegate>{`대표자: ${delegate}`}</Delegate>
+          <Desc dangerouslySetInnerHTML={ { __html: desc.replace(/(\n)+/g, '<br />') } } />
+          <PinContainer>
+            <PinTitle>PIN</PinTitle>
+            <PinInput
+              length={4}
+              inputStyle={pinStyle}
+            />
+            <SubmitButton onClick={onClick}>참여하기</SubmitButton>
+          </PinContainer>
+        </Main>
+      </Modal>
+    );
+  };
 
 export default RoomModal;
