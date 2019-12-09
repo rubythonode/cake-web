@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Router from './Router';
 
 const Root: React.FC = () => (
-  <BrowserRouter>
+  <BrowserRouter basename={window.location.pathname || ''}>
     <Router/>
   </BrowserRouter>
 );
