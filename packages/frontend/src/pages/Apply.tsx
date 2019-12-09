@@ -9,6 +9,7 @@ import PlaceCard from '../components/PlaceCard';
 import Title from '../components/Title';
 
 import goback from '../assets/shared/goback.svg';
+import TimeButton from '../components/TimeButton';
 
 const Container = styled.div`
   height: calc(100vh - 66.6319px);
@@ -176,6 +177,15 @@ export default class Apply extends React.Component<ApplyProps, ApplyState> {
                 </FormField>
                 <FormField>
                   <FormName>시간</FormName>
+                  <FormValue>
+                    {['방과후 1타임', '방과후 2타임', '야자 1타임', '야자 2타임'].map((time, idx) => (
+                      <TimeButton
+                        time={time}
+                        selected={false}
+                        key={`time-${idx}`}
+                      />
+                    ))}
+                  </FormValue>
                 </FormField>
               </FormRow>
               <FormRow>
