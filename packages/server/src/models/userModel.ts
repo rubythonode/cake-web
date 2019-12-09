@@ -7,6 +7,7 @@ export interface IUserPayload {
   password: string;
   serial: string;
   type: string;
+  username: string;
 }
 
 export interface IUser extends IUserPayload, mongoose.Document {}
@@ -24,6 +25,7 @@ const userSchema: Schema = new mongoose.Schema({
   password: { type: String, required: true },
   serial: { type: String, required: true },
   type: { type: String, required: true },
+  username: { type: String, required: true },
 });
 
 userSchema.statics.createUser = async (userPayload: IUserPayload) => {

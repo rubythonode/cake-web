@@ -3,6 +3,7 @@ import mongoose, { Model, Schema } from 'mongoose';
 export interface IRoomPayload {
   name: string;
   pin: string;
+  room: string;
   date: Date;
   time: 'afsc1' | 'afsc2' | 'night1' | 'night2';
   max: number;
@@ -26,6 +27,7 @@ const roomSchema: Schema = new mongoose.Schema({
   max: { type: Number, required: true },
   name: { type: String, required: true },
   pin: { type: String, required: true },
+  room: { type: String, required: true },
   time: { type: String, required: true },
   users: { type: [String], default: [] },
 });
