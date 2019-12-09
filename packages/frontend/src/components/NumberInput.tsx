@@ -1,10 +1,14 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const Input = styled.input`
-  padding: 0.5rem 1rem;
+type InputProps = {
+  long: boolean;
+};
+
+const Input = styled.input<InputProps>`
+  padding: 0.5rem 0.8rem;
   font-size: 1rem;
-  width: 5.2rem;
+  width: 3.5rem;
   background-color: #ffffff;
   line-height: 1.38;
   color: #505050;
@@ -16,20 +20,26 @@ const Input = styled.input`
   &:not(:first-child) {
     margin-left: 0.3rem;
   }
+
+  ${({ long }) => long && css`
+    width: 5.2rem;
+  `};
 `;
 
 interface INumberInputProps {
   className?: string;
   value?: number;
+  long?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const NumberInput: React.FC<INumberInputProps> =
-  ({ className = '', value = 0, onChange }) => {
+  ({ className = '', value = 0, long = false, onChange }) => {
     return (
       <Input
         type="number"
         className={className}
+        long={long}
         value={value}
         onChange={onChange}
       />

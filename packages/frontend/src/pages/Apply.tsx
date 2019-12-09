@@ -6,6 +6,7 @@ import Button from '../components/Button';
 import Layout from '../components/Layout';
 import NumberInput from '../components/NumberInput';
 import PlaceCard from '../components/PlaceCard';
+import TextInput from '../components/TextInput';
 import Title from '../components/Title';
 
 import goback from '../assets/shared/goback.svg';
@@ -62,6 +63,7 @@ const FormRow = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 2rem;
 `;
 
 const FormField = styled.div`
@@ -69,13 +71,50 @@ const FormField = styled.div`
   flex-direction: column;
 `;
 
+const FormFieldDesc = styled(FormField)`
+  width: 100%;
+  margin-bottom: 1rem;
+`;
+
 const FormName = styled.h2`
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.39;
+  letter-spacing: 2.64px;
+  margin: 0;
+  margin-bottom: 1rem;
 `;
 
 const FormValue = styled.div`
   display: flex;
   align-items: center;
   font-size: 1.2rem;
+`;
+
+const FormTextInput = styled(TextInput)`
+  border-radius: 28px;
+  border: solid 1px #707070;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  box-shadow: none;
+  width: unset;
+  line-height: 1.46;
+  letter-spacing: 2.21px;
+`;
+
+const FormTextInputUser = styled(FormTextInput)`
+  width: 169px;
+  margin-left: 0.3rem;
+`;
+
+const FormTextInputName = styled(FormTextInput)`
+  width: 445px;
+`;
+
+const FormTextInputDesc = styled(FormTextInput)`
+  width: 100%;
 `;
 
 type ApplyProps = {
@@ -170,7 +209,7 @@ export default class Apply extends React.Component<ApplyProps, ApplyState> {
                 <FormField>
                   <FormName>날짜</FormName>
                   <FormValue>
-                    <NumberInput value={2019} />년&nbsp;
+                    <NumberInput value={2019} long={true} />년&nbsp;
                     <NumberInput value={1} />월&nbsp;
                     <NumberInput value={1} />일
                   </FormValue>
@@ -181,7 +220,7 @@ export default class Apply extends React.Component<ApplyProps, ApplyState> {
                     {['방과후 1타임', '방과후 2타임', '야자 1타임', '야자 2타임'].map((time, idx) => (
                       <TimeButton
                         time={time}
-                        selected={false}
+                        selected={!idx}
                         key={`time-${idx}`}
                       />
                     ))}
@@ -191,18 +230,32 @@ export default class Apply extends React.Component<ApplyProps, ApplyState> {
               <FormRow>
                 <FormField>
                   <FormName>대표자</FormName>
+                  <FormValue>
+                    <NumberInput value={1} />학년&nbsp;
+                    <NumberInput value={1} />반&nbsp;
+                    <FormTextInputUser placeholder="신청자 이름" />
+                  </FormValue>
                 </FormField>
                 <FormField>
                   <FormName>이용자 수</FormName>
+                  <FormValue>
+                    <NumberInput value={1} />명
+                  </FormValue>
                 </FormField>
                 <FormField>
                   <FormName>방 이름</FormName>
+                  <FormValue>
+                    <FormTextInputName placeholder="10자 이내로 작성해주세요." />
+                  </FormValue>
                 </FormField>
               </FormRow>
               <FormRow>
-                <FormField>
+                <FormFieldDesc>
                   <FormName>신청 목적</FormName>
-                </FormField>
+                  <FormValue>
+                    <FormTextInputDesc placeholder="30자 이내로 작성해주세요." />
+                  </FormValue>
+                </FormFieldDesc>
               </FormRow>
               <SubmitButton>
                 신청하기
