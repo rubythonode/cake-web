@@ -1,8 +1,10 @@
 import * as React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import Switch, { Case, Default } from 'react-switch-case';
 import styled from 'styled-components';
 
 import Button from '../components/Button';
+import DialogModal from '../components/DialogModal';
 import Layout from '../components/Layout';
 import NumberInput from '../components/NumberInput';
 import PlaceCard from '../components/PlaceCard';
@@ -117,30 +119,35 @@ const FormTextInputDesc = styled(FormTextInput)`
   width: 100%;
 `;
 
-type ApplyProps = {
-
-};
-
 type ApplyState = {
   location: string;
+  openDialog: boolean;
   room: string;
   step: number;
 };
 
-export default class Apply extends React.Component<ApplyProps, ApplyState> {
-  constructor(props: ApplyProps) {
+class Apply extends React.Component<RouteComponentProps, ApplyState> {
+  constructor(props: RouteComponentProps) {
     super(props);
 
     this.state = {
       location: '',
+      openDialog: false,
       room: '',
       step: 2,
     };
 
+    this.onClickApply = this.onClickApply.bind(this);
     this.onClickBack = this.onClickBack.bind(this);
     this.onClickCard = this.onClickCard.bind(this);
     this.onClickNext = this.onClickNext.bind(this);
     this.onClickRoom = this.onClickRoom.bind(this);
+    this.onOpenDialog = this.onOpenDialog.bind(this);
+    this.onCloseDialog = this.onCloseDialog.bind(this);
+  }
+
+  public onClickApply() {
+    this.onOpenDialog();
   }
 
   public onClickBack() {
@@ -169,8 +176,22 @@ export default class Apply extends React.Component<ApplyProps, ApplyState> {
     this.onClickNext();
   }
 
+  public onOpenDialog() {
+    this.setState({
+      openDialog: true,
+    });
+  }
+
+  public onCloseDialog() {
+    const { history } = this.props;
+    this.setState({
+      openDialog: false,
+    });
+    history.push('/');
+  }
+
   public render() {
-    const { step } = this.state;
+    const { openDialog, step } = this.state;
     return (
       <Layout tabIdx={1}>
         <Container>
@@ -257,14 +278,21 @@ export default class Apply extends React.Component<ApplyProps, ApplyState> {
                   </FormValue>
                 </FormFieldDesc>
               </FormRow>
-              <SubmitButton>
+              <SubmitButton onClick={this.onClickApply}>
                 신청하기
               </SubmitButton>
             </Form>
           </Default>
         </Switch>
         </Container>
+        <DialogModal
+          isOpen={openDialog}
+          onRequestClose={this.onCloseDialog}
+          message="신청이 완료되었습니다."
+        />
       </Layout>
     );
   }
 }
+
+export default withRouter<RouteComponentProps<any>, any>(Apply);
