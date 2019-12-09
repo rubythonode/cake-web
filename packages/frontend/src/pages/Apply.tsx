@@ -134,7 +134,7 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
       location: '',
       openDialog: false,
       room: '',
-      step: 2,
+      step: 0,
     };
 
     this.onClickApply = this.onClickApply.bind(this);
