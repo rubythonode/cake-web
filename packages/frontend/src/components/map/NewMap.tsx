@@ -21,7 +21,7 @@ const ButtonContainer = styled.div`
 `;
 
 type NewMapProps = {
-  value: string;
+  onClickRoom: (room: string) => void;
 };
 
 export default class NewMap extends React.Component<NewMapProps, {}> {
@@ -29,6 +29,10 @@ export default class NewMap extends React.Component<NewMapProps, {}> {
     super(props);
 
     this.FirstFloor = this.FirstFloor.bind(this);
+  }
+
+  public componentDidUpdate() {
+    ReactTooltip.rebuild();
   }
 
   public render() {
@@ -47,6 +51,8 @@ export default class NewMap extends React.Component<NewMapProps, {}> {
   }
 
   private FirstFloor() {
+    const { onClickRoom } = this.props;
+
     return (
       <StyledSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1047 1034.02">
         <title>신관1층</title>
@@ -81,8 +87,18 @@ export default class NewMap extends React.Component<NewMapProps, {}> {
               <polygon className="cls-2" points="546 592 546 526 360 526 360 591.62 546 592" />
               <polygon className="cls-2" points="546 658 546 592 360 592 360 657.62 546 658" />
               <polygon className="cls-2" points="774 1032 774 880 629 880 629 1031.12 774 1032" />
-              <path className="cls-2 clickable" data-tip="세미나실" d="M264,1032V736H19.5V924.74a105.55,105.55,0,0,0,104.26,105.54Z" />
-              <polygon className="cls-2 clickable" data-tip="시청각실" points="545 264 545 32 406 32 406 2 253 2 253 35 119 35 119 62 2 62 2 264 545 264" />
+              <path
+                className="cls-2 clickable"
+                data-tip="세미나실"
+                onClick={() => onClickRoom('세미나실')}
+                d="M264,1032V736H19.5V924.74a105.55,105.55,0,0,0,104.26,105.54Z"
+              />
+              <polygon
+                className="cls-2 clickable"
+                data-tip="시청각실"
+                onClick={() => onClickRoom('시청각실')}
+                points="545 264 545 32 406 32 406 2 253 2 253 35 119 35 119 62 2 62 2 264 545 264"
+              />
             </g>
           </g>
         </g>

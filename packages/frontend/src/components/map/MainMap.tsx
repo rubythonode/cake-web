@@ -22,7 +22,7 @@ const ButtonContainer = styled.div`
 `;
 
 type MainMapProps = {
-  value: string;
+  onClickRoom: (room: string) => void;
 };
 
 type MainMapState = {
@@ -80,6 +80,8 @@ export default class MainMap extends React.Component<MainMapProps, MainMapState>
   }
 
   private FirstFloor() {
+    const { onClickRoom } = this.props;
+
     return (
       <StyledSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1217 1177">
           <g id="레이어_2" data-name="레이어 2">
@@ -145,6 +147,7 @@ export default class MainMap extends React.Component<MainMapProps, MainMapState>
                   id="상담실"
                   data-tip="상담실"
                   className="cls-3 clickable"
+                  onClick={() => onClickRoom('상담실')}
                   x="863"
                   y="239"
                   width="91.38"
@@ -164,6 +167,7 @@ export default class MainMap extends React.Component<MainMapProps, MainMapState>
                   id="북카페"
                   className="cls-3 clickable"
                   data-tip="북카페"
+                  onClick={() => onClickRoom('북카페')}
                   x="954"
                   y="239"
                   width="174.38"
@@ -173,6 +177,7 @@ export default class MainMap extends React.Component<MainMapProps, MainMapState>
                   id="비즈쿨실"
                   className="cls-3 clickable"
                   data-tip="비즈쿨실"
+                  onClick={() => onClickRoom('비즈쿨실')}
                   x="863"
                   y="2"
                   width="265"
@@ -187,6 +192,8 @@ export default class MainMap extends React.Component<MainMapProps, MainMapState>
   }
 
   private SecondFloor() {
+    const { onClickRoom } = this.props;
+
     return (
       <StyledSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1217 1177">
         <g id="레이어_2" data-name="레이어 2">
@@ -200,12 +207,27 @@ export default class MainMap extends React.Component<MainMapProps, MainMapState>
               <polyline className="cls-1" points="174 1089 173 362 107 239"/>
               <path className="cls-1" d="M429,578H265s2.29,511,0,511"/>
               <polyline className="cls-1" points="589 391 589 239 1128 239"/>
-              <polygon className="cls-2 clickable" data-tip="이비실" points="1033 176 1033 2 853 2 853 174.99 1033 176"/>
+              <polygon
+                className="cls-2 clickable"
+                data-tip="이비실"
+                onClick={() => onClickRoom('이비실')}
+                points="1033 176 1033 2 853 2 853 174.99 1033 176"
+              />
               <polygon className="cls-2" points="1128 177 1128 2 1033 2 1033 175.99 1128 177"/>
-              <polygon className="cls-2 clickable" data-tip="디컨실" points="853 175 853 2 624 2 624 174 853 175"/>
+              <polygon
+                className="cls-2 clickable"
+                data-tip="디컨실"
+                onClick={() => onClickRoom('디컨실')}
+                points="853 175 853 2 624 2 624 174 853 175"
+              />
               <polygon className="cls-2" data-tip="교실" points="767 391 767 239 589 239 589 390.12 767 391"/>
               <polygon className="cls-2" data-tip="교실" points="943 391 943 239 767 239 767 390.12 943 391"/>
-              <polygon className="cls-2 clickable" data-tip="방과후실" points="1128 391 1128 239 943 239 943 390.12 1128 391"/>
+              <polygon
+                className="cls-2 clickable"
+                data-tip="방과후실"
+                onClick={() => onClickRoom('방과후실')}
+                points="1128 391 1128 239 943 239 943 390.12 1128 391"
+              />
               <rect className="cls-2" data-tip="교무실" x="412" y="2" width="212" height="172"/>
               <line className="cls-1" x1="943.38" y1="391" x2="943.38" y2="239"/>
               <line className="cls-1" x1="767" y1="391" x2="767" y2="239"/>

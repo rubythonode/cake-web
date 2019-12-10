@@ -223,8 +223,8 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
             {(() => {
               const { location } = this.state;
               return (location === '본관') ?
-                <MainMap value={''} /> :
-                <NewMap value={''} />;
+                <MainMap onClickRoom={this.onClickRoom} /> :
+                <NewMap onClickRoom={this.onClickRoom} />;
             })()}
           </Case>
           <Default>
