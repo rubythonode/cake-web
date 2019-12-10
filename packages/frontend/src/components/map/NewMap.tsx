@@ -1,6 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
+import RoundButton from '../RoundButton';
+
 import './styles/new.css';
 
 const StyledSvg = styled.svg`
@@ -9,8 +11,40 @@ const StyledSvg = styled.svg`
   margin-bottom: 3.2rem;
 `;
 
-export default class NewMap extends React.Component {
+const Title = styled.h2`
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  z-index: 9;
+`;
+
+type NewMapProps = {
+  value: string;
+};
+
+export default class NewMap extends React.Component<NewMapProps, {}> {
+  constructor(props: NewMapProps) {
+    super(props);
+
+    this.FirstFloor = this.FirstFloor.bind(this);
+  }
+
   public render() {
+    const Floor = this.FirstFloor;
+
+    return (
+      <>
+        <Title>신관</Title>
+        <Floor />
+        <ButtonContainer>
+          <RoundButton value="1F" selected={true} />
+        </ButtonContainer>
+      </>
+    );
+  }
+
+  private FirstFloor() {
     return (
       <StyledSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1047 1034.02">
         <title>신관1층</title>
