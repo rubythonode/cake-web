@@ -11,6 +11,9 @@ import PlaceCard from '../components/PlaceCard';
 import TextInput from '../components/TextInput';
 import Title from '../components/Title';
 
+import MainMap from '../components/map/MainMap';
+import NewMap from '../components/map/NewMap';
+
 import goback from '../assets/shared/goback.svg';
 import TimeButton from '../components/TimeButton';
 
@@ -47,6 +50,7 @@ const GoBack = styled.img`
 
 const SubmitButton = styled(Button)`
   width: 377px;
+  z-index: 9;
 `;
 
 const Form = styled.div`
@@ -216,6 +220,12 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
               <GoBack src={goback} onClick={this.onClickBack} />
               공간 선택
             </StepTitle>
+            {(() => {
+              const { location } = this.state;
+              return (location === '본관') ?
+                <MainMap value={1} /> :
+                <NewMap />;
+            })()}
             <SubmitButton onClick={() => this.onClickRoom('')}>
               선택하기
             </SubmitButton>
