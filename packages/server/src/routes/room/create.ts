@@ -9,15 +9,10 @@ router.use('/', authMiddleware);
 router.post('/', expressAsyncHandler(
   async (req: IAuthRequest, res: express.Response, _: express.NextFunction) => {
     const { id: delegateID }: { id: string } = req.identity;
-    const {
-      name,
-      room,
-      pin,
-      date,
-      time,
-      max,
-      desc,
-    }: IRoomPayload = req.body;
+    const { body: room }: { body: IRoomPayload } = req;
+
+    const { id }: { id: string } = await roomModel.schema.statics.createRoom(room, delegateID);
+    return res.json({ id });
   }));
 
 export default router;
