@@ -6,6 +6,12 @@
 git clone https://github.com/junhoyeo/cake-web
 cd packages/server
 
+# jwtconfig.json을 생성합니다.
+cat >> jwtconfig.json
+{
+  "secret": "s0m3-s3cr3t-K3y"
+}
+
 # yarn을 이용해 의존성을 설치합니다.
 yarn install
 
@@ -57,8 +63,8 @@ yarn run dev
   username: 'hanaro0704',
   email: 'hanaro0704@naver.com', // 이메일
   password: `${password}|${salt}`, // 해싱된 패스워드
-  image: 'https://github.com/junhoyeo.png', // 프로필 사진 URL
   joined: new Date(), // 최초 연동일
+  uid: '2095', // RFID UID
 }
 ```
 
