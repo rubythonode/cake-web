@@ -3,6 +3,8 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import Switch, { Case, Default } from 'react-switch-case';
 import styled from 'styled-components';
 
+import roomCodes from 'tiramisu/rooms';
+
 import Button from '../components/Button';
 import DialogModal from '../components/DialogModal';
 import Layout from '../components/Layout';
@@ -175,7 +177,7 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
 
   public onClickRoom(room: string) {
     this.setState({
-      room,
+      room: roomCodes[room],
     });
     this.onClickNext();
   }

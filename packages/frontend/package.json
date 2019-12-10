@@ -36,8 +36,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "http://cake.junhoyeo.xyz/",
-  "devDependencies": {
-    "@types/react-tooltip": "^3.11.0"
-  }
+  "homepage": "http://cake.junhoyeo.xyz/"
 }
