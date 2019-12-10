@@ -226,9 +226,6 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
                 <MainMap value={''} /> :
                 <NewMap value={''} />;
             })()}
-            <SubmitButton onClick={() => this.onClickRoom('')}>
-              선택하기
-            </SubmitButton>
           </Case>
           <Default>
             <StepTitle>

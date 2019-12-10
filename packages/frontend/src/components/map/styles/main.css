@@ -21,4 +21,5 @@
 .clickable {
   fill: #f03e3e;
   stroke: #c92a2a;
+  cursor: pointer;
 }

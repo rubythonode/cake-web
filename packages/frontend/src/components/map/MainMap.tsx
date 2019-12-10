@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
 
 import RoundButton from '../RoundButton';
@@ -41,6 +42,10 @@ export default class MainMap extends React.Component<MainMapProps, MainMapState>
     this.onClickFloor = this.onClickFloor.bind(this);
   }
 
+  public componentDidUpdate() {
+    ReactTooltip.rebuild();
+  }
+
   public render() {
     const { floor } = this.state;
     const Floor = (floor === 1) ? this.FirstFloor : this.SecondFloor;
@@ -59,6 +64,7 @@ export default class MainMap extends React.Component<MainMapProps, MainMapState>
             selected={floor === 2}
             onClick={() => this.onClickFloor(2)}
           />
+          <ReactTooltip />
         </ButtonContainer>
       </>
     );
@@ -76,7 +82,6 @@ export default class MainMap extends React.Component<MainMapProps, MainMapState>
   private FirstFloor() {
     return (
       <StyledSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1217 1177">
-          <title>본관 1층</title>
           <g id="레이어_2" data-name="레이어 2">
             <g id="레이어_1-2" data-name="레이어 1">
               <g id="본관_1층" data-name="본관 1층">
@@ -98,12 +103,14 @@ export default class MainMap extends React.Component<MainMapProps, MainMapState>
                 <path
                   id="_1학년교실2"
                   data-name="1학년교실2"
+                  data-tip="교실"
                   className="cls-3"
                   d="M265,1089c2.29,0,0-511,0-511H429v511Z"
                 />
                 <path
                   id="_1학년교실"
                   data-name="1학년교실"
+                  data-tip="교실"
                   className="cls-3"
                   d="M174,1089l-1-727L107,239H79V365H2v726.43A83.58,83.58,0,0,0,85.57,1175h4.86A83.58,83.58,0,0,0,174,1091.43Z"
                 />
@@ -125,9 +132,18 @@ export default class MainMap extends React.Component<MainMapProps, MainMapState>
                   className="cls-3"
                   points="241 83 241 59 412 59 412 174 364.03 173.75 241 83"
                 />
-                <rect id="과학실" className="cls-3" x="493" y="2" width="283" height="172" />
+                <rect
+                  id="과학실"
+                  className="cls-3"
+                  data-tip="과학실"
+                  x="493"
+                  y="2"
+                  width="283"
+                  height="172"
+                />
                 <rect
                   id="상담실"
+                  data-tip="상담실"
                   className="cls-3 clickable"
                   x="863"
                   y="239"
@@ -135,10 +151,19 @@ export default class MainMap extends React.Component<MainMapProps, MainMapState>
                   height="152"
                 />
                 <rect id="방송실" className="cls-3" x="808" y="239" width="55" height="152" />
-                <rect id="교무실" className="cls-3" x="589" y="239" width="219" height="152" />
+                <rect
+                  id="교무실"
+                  className="cls-3"
+                  data-tip="교무실"
+                  x="589"
+                  y="239"
+                  width="219"
+                  height="152"
+                />
                 <rect
                   id="북카페"
                   className="cls-3 clickable"
+                  data-tip="북카페"
                   x="954"
                   y="239"
                   width="174.38"
@@ -147,6 +172,7 @@ export default class MainMap extends React.Component<MainMapProps, MainMapState>
                 <rect
                   id="비즈쿨실"
                   className="cls-3 clickable"
+                  data-tip="비즈쿨실"
                   x="863"
                   y="2"
                   width="265"
@@ -163,7 +189,6 @@ export default class MainMap extends React.Component<MainMapProps, MainMapState>
   private SecondFloor() {
     return (
       <StyledSvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1217 1177">
-        <title>본관2층</title>
         <g id="레이어_2" data-name="레이어 2">
           <g id="레이어_1-2" data-name="레이어 1">
             <g id="본관2층">
@@ -175,24 +200,26 @@ export default class MainMap extends React.Component<MainMapProps, MainMapState>
               <polyline className="cls-1" points="174 1089 173 362 107 239"/>
               <path className="cls-1" d="M429,578H265s2.29,511,0,511"/>
               <polyline className="cls-1" points="589 391 589 239 1128 239"/>
-              <polygon className="cls-2" points="1033 176 1033 2 853 2 853 174.99 1033 176"/>
+              <polygon className="cls-2 clickable" data-tip="이비실" points="1033 176 1033 2 853 2 853 174.99 1033 176"/>
               <polygon className="cls-2" points="1128 177 1128 2 1033 2 1033 175.99 1128 177"/>
-              <polygon className="cls-2" points="853 175 853 2 624 2 624 174 853 175"/>
-              <polygon className="cls-2" points="767 391 767 239 589 239 589 390.12 767 391"/>
-              <polygon className="cls-2" points="943 391 943 239 767 239 767 390.12 943 391"/>
-              <polygon className="cls-2" points="1128 391 1128 239 943 239 943 390.12 1128 391"/>
-              <rect className="cls-2" x="412" y="2" width="212" height="172"/>
+              <polygon className="cls-2 clickable" data-tip="디컨실" points="853 175 853 2 624 2 624 174 853 175"/>
+              <polygon className="cls-2" data-tip="교실" points="767 391 767 239 589 239 589 390.12 767 391"/>
+              <polygon className="cls-2" data-tip="교실" points="943 391 943 239 767 239 767 390.12 943 391"/>
+              <polygon className="cls-2 clickable" data-tip="방과후실" points="1128 391 1128 239 943 239 943 390.12 1128 391"/>
+              <rect className="cls-2" data-tip="교무실" x="412" y="2" width="212" height="172"/>
               <line className="cls-1" x1="943.38" y1="391" x2="943.38" y2="239"/>
               <line className="cls-1" x1="767" y1="391" x2="767" y2="239"/>
               <path
                 id="_1학년교실2"
                 data-name="1학년교실2"
+                data-tip="교실"
                 className="cls-2"
                 d="M265,1089c2.29,0,0-511,0-511H429v511Z"
               />
               <path
                 id="_1학년교실"
                 data-name="1학년교실"
+                data-tip="교실"
                 className="cls-2"
                 d="M174,1089l-1-727L107,239H79V365H2v726.43A83.58,83.58,0,0,0,85.57,1175h4.86A83.58,83.58,0,0,0,174,1091.43Z"
               />

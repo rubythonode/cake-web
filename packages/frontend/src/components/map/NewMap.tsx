@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
 
 import RoundButton from '../RoundButton';
@@ -39,6 +40,7 @@ export default class NewMap extends React.Component<NewMapProps, {}> {
         <Floor />
         <ButtonContainer>
           <RoundButton value="1F" selected={true} />
+          <ReactTooltip />
         </ButtonContainer>
       </>
     );
@@ -70,17 +72,17 @@ export default class NewMap extends React.Component<NewMapProps, {}> {
               <line className="cls-1" x1="717.6" y1="658.07" x2="717.6" y2="814" />
               <line className="cls-1" x1="628.6" y1="881" x2="628.6" y2="1030" />
               <line className="cls-1" x1="883" y1="880" x2="883" y2="1029" />
-              <polygon className="cls-2" points="188 517 188 264 2 264 2 515.54 188 517" />
+              <polygon className="cls-2" data-tip="인강실" points="188 517 188 264 2 264 2 515.54 188 517" />
               <polygon className="cls-2" points="718 814 718 659 545 659 545 813.1 718 814" />
-              <polygon className="cls-2" points="629 1032 629 880 374 880 374 1031.12 629 1032" />
-              <polygon className="cls-2" points="883 815 883 659 718 659 718 814.1 883 815" />
-              <polygon className="cls-2" points="546 394 546 264 360 264 360 393.25 546 394" />
+              <polygon className="cls-2" data-tip="교무실" points="629 1032 629 880 374 880 374 1031.12 629 1032" />
+              <polygon className="cls-2" data-tip="그린IT실" points="883 815 883 659 718 659 718 814.1 883 815" />
+              <polygon className="cls-2" data-tip="IT프로젝트실" points="546 394 546 264 360 264 360 393.25 546 394" />
               <polygon className="cls-2" points="546 526 546 393 360 393 360 525.23 546 526" />
               <polygon className="cls-2" points="546 592 546 526 360 526 360 591.62 546 592" />
               <polygon className="cls-2" points="546 658 546 592 360 592 360 657.62 546 658" />
               <polygon className="cls-2" points="774 1032 774 880 629 880 629 1031.12 774 1032" />
-              <path className="cls-2" d="M264,1032V736H19.5V924.74a105.55,105.55,0,0,0,104.26,105.54Z" />
-              <polygon className="cls-2" points="545 264 545 32 406 32 406 2 253 2 253 35 119 35 119 62 2 62 2 264 545 264" />
+              <path className="cls-2 clickable" data-tip="세미나실" d="M264,1032V736H19.5V924.74a105.55,105.55,0,0,0,104.26,105.54Z" />
+              <polygon className="cls-2 clickable" data-tip="시청각실" points="545 264 545 32 406 32 406 2 253 2 253 35 119 35 119 62 2 62 2 264 545 264" />
             </g>
           </g>
         </g>
