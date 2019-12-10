@@ -9,4 +9,10 @@ router.get('/', expressAsyncHandler(async (req, res, _) => {
   return res.json({ rooms });
 }));
 
+router.get('/:roomID', expressAsyncHandler(async (req, res, _) => {
+  const roomID: string = req.params.roomID;
+  const room: IRoomModel = await roomModel.findById(roomID);
+  return res.json({ room });
+}));
+
 export default router;
