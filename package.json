@@ -25,6 +25,7 @@
   "dependencies": {
     "frontend": "file:packages/frontend",
     "server": "file:packages/server",
-    "tiramisu": "file:packages/tiramisu"
+    "tiramisu": "file:packages/tiramisu",
+    "unix-timestamp": "^0.2.0"
   }
 }

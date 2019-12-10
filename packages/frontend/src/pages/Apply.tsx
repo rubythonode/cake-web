@@ -2,8 +2,9 @@ import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import Switch, { Case, Default } from 'react-switch-case';
 import styled from 'styled-components';
+import timestamp from 'unix-timestamp';
 
-import roomCodes from 'tiramisu/rooms';
+import { rooms as roomCodes, timetable } from 'tiramisu';
 
 import Button from '../components/Button';
 import DialogModal from '../components/DialogModal';
@@ -112,7 +113,7 @@ const FormTextInput = styled(TextInput)`
   letter-spacing: 2.21px;
 `;
 
-const FormTextInputUser = styled(FormTextInput)`
+const FormTextInputPin = styled(FormTextInput)`
   width: 169px;
   margin-left: 0.3rem;
 `;
@@ -130,17 +131,38 @@ type ApplyState = {
   openDialog: boolean;
   room: string;
   step: number;
+
+  year: number;
+  month: number;
+  day: number;
+  max: number;
+  name: string;
+  pin: string;
+  desc: string;
+  time: string;
 };
 
 class Apply extends React.Component<RouteComponentProps, ApplyState> {
   constructor(props: RouteComponentProps) {
     super(props);
 
+    const today = new Date();
+
     this.state = {
       location: '',
       openDialog: false,
       room: '',
       step: 0,
+
+      day: today.getDate(),
+      month: today.getMonth() + 1,
+      year: today.getFullYear(),
+
+      desc: '',
+      max: 1,
+      name: '',
+      pin: '',
+      time: 'afsc1',
     };
 
     this.onClickApply = this.onClickApply.bind(this);
@@ -148,11 +170,25 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
     this.onClickCard = this.onClickCard.bind(this);
     this.onClickNext = this.onClickNext.bind(this);
     this.onClickRoom = this.onClickRoom.bind(this);
+    this.onClickTime = this.onClickTime.bind(this);
     this.onOpenDialog = this.onOpenDialog.bind(this);
     this.onCloseDialog = this.onCloseDialog.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   public onClickApply() {
+    const { year, room, month, day, max, name, desc, pin, time } = this.state;
+    const payload = {
+      desc,
+      max,
+      name,
+      pin,
+      room,
+      time,
+      date: timestamp.fromDate(new Date(year, month - 1, day)),
+    };
+    console.log(payload);
+    return;
     this.onOpenDialog();
   }
 
@@ -182,6 +218,12 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
     this.onClickNext();
   }
 
+  public onClickTime(time: string) {
+    this.setState({
+      time,
+    });
+  }
+
   public onOpenDialog() {
     this.setState({
       openDialog: true,
@@ -196,8 +238,17 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
     history.push('/');
   }
 
+  public handleChange(event: React.SyntheticEvent) {
+    event.persist();
+    const { value, name }: { value: string, name: string } = event.target as HTMLInputElement;
+
+    this.setState({
+      [name]: value,
+    } as any);
+  }
+
   public render() {
-    const { openDialog, step } = this.state;
+    const { openDialog, step, year, month, day, max, name, pin, desc, time } = this.state;
     return (
       <Layout tabIdx={1}>
         <Container>
@@ -239,19 +290,33 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
                 <FormField>
                   <FormName>날짜</FormName>
                   <FormValue>
-                    <NumberInput value={2019} long={true} />년&nbsp;
-                    <NumberInput value={1} />월&nbsp;
-                    <NumberInput value={1} />일
+                    <NumberInput
+                      name="year"
+                      value={year}
+                      onChange={this.handleChange}
+                      long={true}
+                    />년&nbsp;
+                    <NumberInput
+                      name="month"
+                      value={month}
+                      onChange={this.handleChange}
+                    />월&nbsp;
+                    <NumberInput
+                      name="day"
+                      value={day}
+                      onChange={this.handleChange}
+                    />일
                   </FormValue>
                 </FormField>
                 <FormField>
                   <FormName>시간</FormName>
                   <FormValue>
-                    {['방과후 1타임', '방과후 2타임', '야자 1타임', '야자 2타임'].map((time, idx) => (
+                    {timetable.map((t: { name: string, code: string }, idx: number) => (
                       <TimeButton
-                        time={time}
-                        selected={!idx}
+                        time={t.name}
+                        selected={time === t.code}
                         key={`time-${idx}`}
+                        onClick={() => this.onClickTime(t.code)}
                       />
                     ))}
                   </FormValue>
@@ -259,23 +324,35 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
               </FormRow>
               <FormRow>
                 <FormField>
-                  <FormName>대표자</FormName>
+                  <FormName>방 가입 PIN</FormName>
                   <FormValue>
-                    <NumberInput value={1} />학년&nbsp;
-                    <NumberInput value={1} />반&nbsp;
-                    <FormTextInputUser placeholder="신청자 이름" />
+                    <FormTextInputPin
+                      name="pin"
+                      value={pin}
+                      onChange={this.handleChange}
+                      placeholder="4자리 PIN"
+                    />
                   </FormValue>
                 </FormField>
                 <FormField>
                   <FormName>이용자 수</FormName>
                   <FormValue>
-                    <NumberInput value={1} />명
+                    <NumberInput
+                      name="max"
+                      value={max}
+                      onChange={this.handleChange}
+                    />명
                   </FormValue>
                 </FormField>
                 <FormField>
                   <FormName>방 이름</FormName>
                   <FormValue>
-                    <FormTextInputName placeholder="10자 이내로 작성해주세요." />
+                    <FormTextInputName
+                      name="name"
+                      value={name}
+                      onChange={this.handleChange}
+                      placeholder="10자 이내로 작성해주세요."
+                    />
                   </FormValue>
                 </FormField>
               </FormRow>
@@ -283,7 +360,12 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
                 <FormFieldDesc>
                   <FormName>신청 목적</FormName>
                   <FormValue>
-                    <FormTextInputDesc placeholder="30자 이내로 작성해주세요." />
+                    <FormTextInputDesc
+                      name="desc"
+                      value={desc}
+                      onChange={this.handleChange}
+                      placeholder="30자 이내로 작성해주세요."
+                    />
                   </FormValue>
                 </FormFieldDesc>
               </FormRow>

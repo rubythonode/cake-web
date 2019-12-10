@@ -18,17 +18,19 @@ interface ITextInputProps {
   className?: string;
   value?: string;
   type?: string;
+  name?: string;
   placeholder?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const TextInput: React.FC<ITextInputProps> =
-  ({ className = '', value = '', type = 'text', placeholder = '', onChange }) => {
+  ({ className = '', value = '', name = '', type = 'text', placeholder = '', onChange }) => {
     return (
       <Input
         className={className}
         value={value}
         type={type}
+        name={name}
         placeholder={placeholder}
         onChange={onChange}
       />

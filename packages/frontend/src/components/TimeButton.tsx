@@ -8,6 +8,8 @@ interface IStyledButtonProps {
 }
 
 const StyledButton = styled(Time)<IStyledButtonProps>`
+  cursor: pointer;
+
   ${({ selected }) => selected && css`
     background-color: #505050;
     color: white;

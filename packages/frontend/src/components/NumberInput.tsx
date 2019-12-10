@@ -30,15 +30,17 @@ interface INumberInputProps {
   className?: string;
   value?: number;
   long?: boolean;
+  name?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const NumberInput: React.FC<INumberInputProps> =
-  ({ className = '', value = 0, long = false, onChange }) => {
+  ({ className = '', name = '', value = 0, long = false, onChange }) => {
     return (
       <Input
         type="number"
         className={className}
+        name={name}
         long={long}
         value={value}
         onChange={onChange}

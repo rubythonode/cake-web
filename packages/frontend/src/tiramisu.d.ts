@@ -1,1 +1,1 @@
-declare module 'tiramisu/rooms';
+declare module 'tiramisu';
