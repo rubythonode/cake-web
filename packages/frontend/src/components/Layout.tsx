@@ -3,12 +3,6 @@ import styled from 'styled-components';
 
 import Header from '../components/Header';
 
-const exampleUserData = {
-  grade: 1,
-  klass: 4,
-  name: '이혜원',
-};
-
 const Container = styled.div`
   background-color: #f6f5f5;
 `;
@@ -25,15 +19,42 @@ type LayoutProps = {
   children: React.ReactNode;
 };
 
-const Layout: React.FC<LayoutProps> = ({ tabIdx, children }) => {
-  return (
-    <Container>
-      <Header tabIdx={tabIdx} user={exampleUserData} />
-      <Content>
-        {children}
-      </Content>
-    </Container>
-  );
+type LayoutState = {
+  grade: number;
+  klass: number;
+  name: string;
 };
 
-export default Layout;
+export default class Layout extends React.Component<LayoutProps, LayoutState> {
+  constructor(props: LayoutProps) {
+    super(props);
+
+    this.state = {
+      grade: 0,
+      klass: 0,
+      name: '',
+    };
+  }
+
+  public componentDidMount() {
+    const { serial = '0000', name } = JSON.parse(localStorage.getItem('user'));
+    this.setState({
+      name,
+      grade: serial[0],
+      klass: serial[1],
+    });
+  }
+
+  public render() {
+    const { tabIdx, children } = this.props;
+    const user = this.state;
+    return (
+      <Container>
+        <Header tabIdx={tabIdx} user={user} />
+        <Content>
+          {children}
+        </Content>
+      </Container>
+    );
+  }
+}

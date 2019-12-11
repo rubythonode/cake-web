@@ -106,11 +106,14 @@ interface IRoom {
 }
 
 type HomeState = {
+  badMessage: string;
+  openBadDialog: boolean,
   openDialog: boolean,
   openModal: boolean,
   room: any,
   rooms: any,
   user: any,
+  pin: string,
 };
 
 class Home extends React.Component<RouteComponentProps, HomeState> {
@@ -118,8 +121,11 @@ class Home extends React.Component<RouteComponentProps, HomeState> {
     super(props);
 
     this.state = {
+      badMessage: '',
+      openBadDialog: false,
       openDialog: false,
       openModal: false,
+      pin: '',
       room: {
         desc: '',
       },
@@ -131,7 +137,10 @@ class Home extends React.Component<RouteComponentProps, HomeState> {
       },
     };
 
-    this.onClickApply = this.onClickApply.bind(this);
+    this.onClickJoin = this.onClickJoin.bind(this);
+    this.onCompletePin = this.onCompletePin.bind(this);
+    this.onToggleBadDialog = this.onToggleBadDialog.bind(this);
+    this.onCloseBadDialog = this.onCloseBadDialog.bind(this);
     this.onToggleDialog = this.onToggleDialog.bind(this);
     this.onOpenModal = this.onOpenModal.bind(this);
     this.onCloseModal = this.onCloseModal.bind(this);
@@ -165,9 +174,48 @@ class Home extends React.Component<RouteComponentProps, HomeState> {
     }
   }
 
-  public onClickApply() {
-    this.onCloseModal();
-    this.onToggleDialog();
+  public async onClickJoin() {
+    const { room, pin } = this.state;
+    if (room.users.includes(JSON.parse(localStorage.getItem('user')).uid)) {
+      this.onToggleBadDialog('이미 참가한 방입니다.');
+      return;
+    }
+
+    if (!pin) {
+      this.onToggleBadDialog('PIN을 입력해주세요.');
+      return;
+    }
+
+    try {
+      await api.post(`/room/${room.id}`, { pin }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      this.onCloseModal();
+      this.onToggleDialog();
+    } catch (err) {
+      this.onToggleBadDialog('잘못된 PIN을 입력했습니다.');
+    }
+  }
+
+  public onCompletePin(value: any, _: any) {
+    this.setState({
+      pin: value,
+    });
+  }
+
+  public onToggleBadDialog(badMessage: string) {
+    this.setState(prevState => ({
+      badMessage,
+      openBadDialog: !prevState.openBadDialog,
+    }));
+  }
+
+  public onCloseBadDialog() {
+    this.setState({
+      openBadDialog: false,
+    });
   }
 
   public onToggleDialog() {
@@ -195,7 +243,7 @@ class Home extends React.Component<RouteComponentProps, HomeState> {
   }
 
   public render() {
-    const { room, rooms, openDialog, openModal } = this.state;
+    const { badMessage, room, rooms, openBadDialog, openDialog, openModal } = this.state;
 
     return (
       <Layout tabIdx={0}>
@@ -227,7 +275,8 @@ class Home extends React.Component<RouteComponentProps, HomeState> {
         </Container>
         <RoomModal
           isOpen={openModal}
-          onClick={this.onClickApply}
+          onClick={this.onClickJoin}
+          onComplete={this.onCompletePin}
           onRequestClose={this.onCloseModal}
           room={room}
         />
@@ -235,6 +284,11 @@ class Home extends React.Component<RouteComponentProps, HomeState> {
           isOpen={openDialog}
           onRequestClose={this.onToggleDialog}
           message="참가 되었습니다."
+        />
+        <DialogModal
+          isOpen={openBadDialog}
+          onRequestClose={this.onCloseBadDialog}
+          message={badMessage}
         />
       </Layout>
     );

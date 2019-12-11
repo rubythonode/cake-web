@@ -79,7 +79,16 @@
 ```
 
 ### 방 신청하기
-- 하는중임
+- POST `/room/{roomID}`
+- 예시: `/room/5df0d99588cc637ae1df4a66`
+- 헤더 `Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG...`
+
+```json
+{"pin": "1234"}
+```
+
+- 방의 ID와 PIN 번호를 통해 인증
+- 참가 성공시 `200`, 에러 발생 시 그 외의 코드
 
 ### 교사 관련
 - 하는중임

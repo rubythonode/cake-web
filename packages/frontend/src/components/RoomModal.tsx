@@ -92,10 +92,11 @@ const SubmitButton = styled(Button)`
 export interface IRoomModalProps extends IModalProps {
   room: any;
   onClick?: (event: React.MouseEvent<HTMLElement>) => any;
+  onComplete?: (value: any, index: any) => any;
 }
 
 const RoomModal: React.FC<IRoomModalProps> =
-  ({ isOpen, onAfterOpen, onRequestClose, room, onClick }) => {
+  ({ isOpen, onAfterOpen, onRequestClose, room, onClick, onComplete }) => {
     const { users = [], max, room: roomName, delegate, desc, times = [] } = room;
     return (
       <Modal
@@ -120,6 +121,7 @@ const RoomModal: React.FC<IRoomModalProps> =
             <PinInput
               length={4}
               inputStyle={pinStyle}
+              onComplete={onComplete}
             />
             <SubmitButton onClick={onClick}>참여하기</SubmitButton>
           </PinContainer>
