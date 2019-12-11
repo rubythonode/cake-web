@@ -4,6 +4,9 @@ import mongoose, { Model, Schema } from 'mongoose';
 import encryptPassword from '../utils/encryptPassword';
 import requestDimigo from '../utils/requestDimigo';
 
+// tslint:disable-next-line:import-name
+import whitelist from '../../whitelist.json';
+
 export interface IUserPayload {
   email: string;
   name: string;
@@ -34,7 +37,6 @@ const userSchema: Schema = new mongoose.Schema({
 });
 
 interface IDimigoIdentity extends IUserPayload {
-  idx: string;
   user_type: string;
 }
 
@@ -57,7 +59,9 @@ userSchema.statics.createUser = async (userPayload: IUserPayload) => {
 userSchema.statics.createDimigo =
   async function (username: string, password: string): Promise<IUserModel> {
     const identity: any = await requestDimigo(username, password);
-    const { email, name, serial, idx, user_type }: IDimigoIdentity = identity;
+    const { email, name, serial, user_type }: IDimigoIdentity = identity;
+    // @ts-ignore
+    const rfid: string = whitelist[name];
 
     const newUser: IUserModel = this.createUser({
       email,
@@ -66,7 +70,7 @@ userSchema.statics.createDimigo =
       serial,
       username,
       type: user_type,
-      uid: idx,
+      uid: rfid || 'none',
     });
 
     return newUser;
