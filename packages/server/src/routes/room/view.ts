@@ -1,5 +1,6 @@
 import express, { Router } from 'express';
 import expressAsyncHandler from 'express-async-handler';
+import { IAuthRequest } from '../../middlewares/auth';
 
 import roomModel, { IRoomModel } from '../../models/roomModel';
 import userModel, { IUserModel } from '../../models/userModel';
@@ -18,5 +19,15 @@ router.get('/:roomID', expressAsyncHandler(async (req, res, _) => {
   room.delegate = delegate.name;
   return res.json({ room });
 }));
+
+router.get('/mine', expressAsyncHandler(
+  async (req: IAuthRequest, res: express.Response, _: express.NextFunction) => {
+    const { id: delegateID }: { id: string } = req.identity;
+
+    const delegate: IUserModel = await userModel.findById(delegateID);
+    const rooms: any = await roomModel.find({ users: delegate.uid });
+    return res.json({ rooms });
+  }),
+);
 
 export default router;
