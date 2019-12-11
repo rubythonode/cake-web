@@ -9,9 +9,14 @@ import Time from './Time';
 const pinStyle: object = {
   border: 'solid 1px #505050',
   borderRadius: '7px',
+  fontSize: '1rem',
   height: '52px',
   margin: '0 3.5px',
   width: '42px',
+};
+
+const pinFocusStyle: object = {
+  borderColor: '#ff00aa',
 };
 
 const TimeList = styled.div`
@@ -121,6 +126,7 @@ const RoomModal: React.FC<IRoomModalProps> =
             <PinInput
               length={4}
               inputStyle={pinStyle}
+              inputFocusStyle={pinFocusStyle}
               onComplete={onComplete}
             />
             <SubmitButton onClick={onClick}>참여하기</SubmitButton>

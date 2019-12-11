@@ -320,11 +320,15 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
                       name="month"
                       value={month}
                       onChange={this.handleChange}
+                      min={1}
+                      max={12}
                     />월&nbsp;
                     <NumberInput
                       name="day"
                       value={day}
                       onChange={this.handleChange}
+                      min={1}
+                      max={31}
                     />일
                   </FormValue>
                 </FormField>
@@ -361,6 +365,7 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
                       name="max"
                       value={max}
                       onChange={this.handleChange}
+                      min={1}
                     />명
                   </FormValue>
                 </FormField>

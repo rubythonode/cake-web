@@ -13,6 +13,8 @@ const StyledSvg = styled.svg`
 `;
 
 const Title = styled.h2`
+  font-size: 2rem;
+  margin-top: 1rem;
 `;
 
 const ButtonContainer = styled.div`

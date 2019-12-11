@@ -7,6 +7,9 @@ import RoundButton from '../RoundButton';
 import './styles/main.css';
 
 const Title = styled.h2`
+  font-size: 2rem;
+  margin-top: 1rem;
+  margin-bottom: -0.5rem;
 `;
 
 const StyledSvg = styled.svg`

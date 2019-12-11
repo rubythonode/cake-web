@@ -31,11 +31,13 @@ interface INumberInputProps {
   value?: number;
   long?: boolean;
   name?: string;
+  max?: number;
+  min?: number;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const NumberInput: React.FC<INumberInputProps> =
-  ({ className = '', name = '', value = 0, long = false, onChange }) => {
+  ({ className = '', name = '', value = 0, long = false, max, min, onChange }) => {
     return (
       <Input
         type="number"
@@ -43,6 +45,8 @@ const NumberInput: React.FC<INumberInputProps> =
         name={name}
         long={long}
         value={value}
+        max={max}
+        min={min}
         onChange={onChange}
       />
     );
