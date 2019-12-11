@@ -25,7 +25,9 @@ router.get('/mine', expressAsyncHandler(
     const { id: delegateID }: { id: string } = req.identity;
 
     const delegate: IUserModel = await userModel.findById(delegateID);
-    const rooms: any = await roomModel.find({ users: delegate.uid });
+    const rooms: any = await roomModel
+      .find({ users: delegate.uid })
+      .select('id desc times name room users date max');
     return res.json({ rooms });
   }),
 );
