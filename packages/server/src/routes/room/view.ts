@@ -12,14 +12,6 @@ router.get('/', expressAsyncHandler(async (req, res, _) => {
   return res.json({ rooms });
 }));
 
-router.get('/:roomID', expressAsyncHandler(async (req, res, _) => {
-  const roomID: string = req.params.roomID;
-  const room: IRoomModel = await roomModel.findById(roomID).select('-pin -created');
-  const delegate: IUserModel = await userModel.findById(room.delegate);
-  room.delegate = delegate.name;
-  return res.json({ room });
-}));
-
 router.get('/mine', expressAsyncHandler(
   async (req: IAuthRequest, res: express.Response, _: express.NextFunction) => {
     const { id: delegateID }: { id: string } = req.identity;
@@ -31,5 +23,13 @@ router.get('/mine', expressAsyncHandler(
     return res.json({ rooms });
   }),
 );
+
+router.get('/:roomID', expressAsyncHandler(async (req, res, _) => {
+  const roomID: string = req.params.roomID;
+  const room: IRoomModel = await roomModel.findById(roomID).select('-pin -created');
+  const delegate: IUserModel = await userModel.findById(room.delegate);
+  room.delegate = delegate.name;
+  return res.json({ room });
+}));
 
 export default router;
