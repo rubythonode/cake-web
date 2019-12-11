@@ -1,5 +1,7 @@
 import express, { Router } from 'express';
 import expressAsyncHandler from 'express-async-handler';
+
+import * as admin from 'firebase-admin';
 import roomModel, { IRoomModel } from '../../models/roomModel';
 
 const router: express.IRouter = Router();
@@ -9,11 +11,17 @@ router.post('/', expressAsyncHandler(async (req, res, _) => {
   const isRoomExist: IRoomModel = await roomModel.findOne({
     $and: [
       { _id: room },
-      {
-        users: { all: [user] },
-      },
+      { users: user },
     ],
   });
+
+  if (isRoomExist) {
+    const db: any = admin.database();
+    const ref: any = db.ref(`/rooms/${room}`);
+    ref.once('value', (snapshot: any) => {
+      ref.set(!snapshot.val());
+    });
+  }
 
   // TODO: toggle firebase realtime DB
 

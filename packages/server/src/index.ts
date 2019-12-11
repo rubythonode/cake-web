@@ -2,6 +2,17 @@ import mongoose from 'mongoose';
 
 import app from './app';
 
+// tslint:disable-next-line:import-name
+import * as admin from "firebase-admin";
+// tslint:disable-next-line:import-name
+import serviceAccount from './firebase.key.json';
+
+admin.initializeApp({
+  // @ts-ignore
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: 'https://icicle-cake.firebaseio.com'
+});
+
 const PORT: number | string = process.env.PORT || 5000;
 
 // fix all mongoose deprecation warnings
