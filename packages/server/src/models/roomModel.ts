@@ -71,5 +71,10 @@ export const roomToMobile: RoomToMobile = async (room: IRoomModel) => {
       await userModel.findOne({ uid: u }).select('name serial'),
     ),
   );
-  return { ...room.toJSON(), users };
+  const roomDate: Date = new Date(room.date);
+  return {
+    ...room.toJSON(),
+    users,
+    date: `${roomDate.getFullYear()} / ${roomDate.getMonth() + 1} / ${roomDate.getDate()}`,
+  };
 };
