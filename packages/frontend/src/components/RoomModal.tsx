@@ -14,6 +14,10 @@ const pinStyle: object = {
   width: '42px',
 };
 
+const TimeList = styled.div`
+  display: flex;
+`;
+
 const Header = styled.div`
   display: flex;
   flex-direction: column;
@@ -86,16 +90,13 @@ const SubmitButton = styled(Button)`
 `;
 
 export interface IRoomModalProps extends IModalProps {
-  room: {
-    delegate: string;
-    desc: string;
-  };
+  room: any;
   onClick?: (event: React.MouseEvent<HTMLElement>) => any;
 }
 
 const RoomModal: React.FC<IRoomModalProps> =
   ({ isOpen, onAfterOpen, onRequestClose, room, onClick }) => {
-    const { delegate, desc } = room;
+    const { users = [], max, room: roomName, delegate, desc, times = [] } = room;
     return (
       <Modal
         isOpen={isOpen}
@@ -103,9 +104,13 @@ const RoomModal: React.FC<IRoomModalProps> =
         onRequestClose={onRequestClose}
       >
         <Header>
-          <Time>방과후 1타임</Time>
-          <Name>방과후 교실</Name>
-          <Status>현 2명 / 총 4명</Status>
+          <TimeList>
+            {times.map((time: string, idx: number) => (
+              <Time key={`time--${idx}`}>{time}</Time>
+            ))}
+          </TimeList>
+          <Name>{ roomName }</Name>
+          <Status>현 {users.length}명 / 총 {max}명</Status>
         </Header>
         <Main>
           <Delegate>{`대표자: ${delegate}`}</Delegate>

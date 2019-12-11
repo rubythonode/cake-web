@@ -14,11 +14,6 @@ import goback from '../assets/shared/goback.svg';
 import gofront from '../assets/shared/gofront.svg';
 import search from '../assets/shared/search.svg';
 
-const exampleRoomData = {
-  delegate: '이혜원',
-  desc: '교내에서 진행하는 창의 IT대회를 준비하기 위해 사용합니다.\n민승현, 변경민, 여준호\n빨리 참가하세요~!!!!\n비밀번호는 톡방에 올려뒀어요~~',
-};
-
 const Container = styled.div`
   width: 86%;
   margin-bottom: 5rem;
@@ -113,6 +108,7 @@ interface IRoom {
 type HomeState = {
   openDialog: boolean,
   openModal: boolean,
+  room: any,
   rooms: any,
 };
 
@@ -123,12 +119,16 @@ class Home extends React.Component<RouteComponentProps, HomeState> {
     this.state = {
       openDialog: false,
       openModal: false,
+      room: {
+        desc: '',
+      },
       rooms: [],
     };
 
     this.onClickApply = this.onClickApply.bind(this);
     this.onToggleDialog = this.onToggleDialog.bind(this);
-    this.onToggleModal = this.onToggleModal.bind(this);
+    this.onOpenModal = this.onOpenModal.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
 
     if (!localStorage.getItem('token')) {
       const { history } = this.props;
@@ -159,7 +159,7 @@ class Home extends React.Component<RouteComponentProps, HomeState> {
   }
 
   public onClickApply() {
-    this.onToggleModal();
+    this.onCloseModal();
     this.onToggleDialog();
   }
 
@@ -169,15 +169,26 @@ class Home extends React.Component<RouteComponentProps, HomeState> {
     }));
   }
 
-  public onToggleModal() {
-    this.setState(prevState => ({
-      openModal: !prevState.openModal,
-    }));
+  public async onOpenModal(roomID: string) {
+    const { data: { room } } = await api.get(`/room/${roomID}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    this.setState({
+      room,
+      openModal: true,
+    });
+  }
+
+  public onCloseModal() {
+    this.setState({
+      openModal: false,
+    });
   }
 
   public render() {
-    const { rooms, openDialog, openModal } = this.state;
-    console.log(rooms);
+    const { room, rooms, openDialog, openModal } = this.state;
 
     return (
       <Layout tabIdx={0}>
@@ -198,20 +209,20 @@ class Home extends React.Component<RouteComponentProps, HomeState> {
             </Search>
           </Tools>
           <CardList>
-            {rooms.map((room: any, idx: number) =>
+            {rooms.map((r: any, idx: number) =>
               <RoomCard
                 key={idx}
-                onClick={this.onToggleModal}
-                {...room}
-              />
+                onClick={() => this.onOpenModal(r.id)}
+                {...r}
+              />,
             )}
           </CardList>
         </Container>
         <RoomModal
           isOpen={openModal}
           onClick={this.onClickApply}
-          onRequestClose={this.onToggleModal}
-          room={exampleRoomData}
+          onRequestClose={this.onCloseModal}
+          room={room}
         />
         <DialogModal
           isOpen={openDialog}
