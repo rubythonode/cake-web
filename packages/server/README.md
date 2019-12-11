@@ -43,8 +43,8 @@ yarn run dev
   max: 4, // 최대 참가 인원 수
   desc: '저희가요 교내 IT 공모전에 나가는데 오늘 코딩을 안하면 손에 가시가 돋아서 그만...', // 사유
   delegate: '507f1f77bcf86cd799439011', // 신청 대표자
-  users: [ // 신청한 사람들 ID 목록
-    '507f1f77bcf86cd799439011'
+  users: [ // 신청한 사람들 UID 목록
+    '4C1F4290'
   ],
   created: new Date(), // 추가된 시간
 }
@@ -64,7 +64,7 @@ yarn run dev
   email: 'hanaro0704@naver.com', // 이메일
   password: `${password}|${salt}`, // 해싱된 패스워드
   joined: new Date(), // 최초 연동일
-  uid: '2095', // RFID UID
+  uid: '4C1F4290', // RFID UID
 }
 ```
 

@@ -1,6 +1,8 @@
 import mongoose, { Model, Schema } from 'mongoose';
 import { utils } from 'tiramisu';
 
+import userModel, { IUserModel } from './userModel';
+
 interface IUtils {
   getRoomByCode: (code: string) => string;
   getTimeByCode: (code: string) => string;
@@ -45,7 +47,8 @@ roomSchema.statics.createRoom = async (roomPayload: IRoomPayload, delegateID: st
     ...roomPayload,
     ...{ delegate: delegateID },
   });
-  newRoom.users.push(delegateID);
+  const user: IUserModel = await userModel.findById(delegateID);
+  newRoom.users.push(user.uid);
   const savedRoom: IRoomModel = await newRoom.save();
   return savedRoom;
 };

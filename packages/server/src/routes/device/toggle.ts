@@ -6,7 +6,6 @@ const router: express.IRouter = Router();
 
 router.post('/', expressAsyncHandler(async (req, res, _) => {
   const { room, user }: { room: string, user: string } = req.body;
-
   const isRoomExist: IRoomModel = await roomModel.findOne({
     $and: [
       { _id: room },
