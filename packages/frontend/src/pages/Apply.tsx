@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import timestamp from 'unix-timestamp';
 
 import { rooms as roomCodes, timetable } from 'tiramisu';
+import api from '../api';
 
 import Button from '../components/Button';
 import DialogModal from '../components/DialogModal';
@@ -176,7 +177,7 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  public onClickApply() {
+  public async onClickApply() {
     const { year, room, month, day, max, name, desc, pin, time } = this.state;
     const payload = {
       desc,
@@ -187,8 +188,16 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
       time,
       date: timestamp.fromDate(new Date(year, month - 1, day)),
     };
-    return;
-    this.onOpenDialog();
+    try {
+      await api.post('/room', payload, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      this.onOpenDialog();
+    } catch (err) {
+      window.alert(err);
+    }
   }
 
   public onClickBack() {
