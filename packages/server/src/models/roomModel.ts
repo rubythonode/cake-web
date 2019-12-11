@@ -13,7 +13,7 @@ export interface IRoomPayload {
   pin: string;
   room: string;
   date: number;
-  time: 'afsc1' | 'afsc2' | 'night1' | 'night2';
+  times: ['afsc1' | 'afsc2' | 'night1' | 'night2'];
   max: number;
   desc: string;
 }
@@ -36,7 +36,7 @@ const roomSchema: Schema = new mongoose.Schema({
   name: { type: String, required: true },
   pin: { type: String, required: true },
   room: { type: String, required: true },
-  time: { type: [String], required: true },
+  times: { type: [String], required: true },
   users: { type: [String], default: [] },
 });
 
@@ -57,7 +57,7 @@ roomSchema.methods.toJSON = function (): any {
     delete obj[key];
   });
   obj.room = getRoomByCode(obj.room);
-  obj.time = obj.time.map((v: string) => getTimeByCode(v));
+  obj.times = obj.times.map((v: string) => getTimeByCode(v));
   return obj;
 };
 

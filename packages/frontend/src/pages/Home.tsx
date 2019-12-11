@@ -6,7 +6,7 @@ import api from '../api';
 
 import DialogModal from '../components/DialogModal';
 import Layout from '../components/Layout';
-import RoomCard, { IRoomCardProps } from '../components/RoomCard';
+import RoomCard from '../components/RoomCard';
 import RoomModal from '../components/RoomModal';
 
 import filter from '../assets/shared/filter.svg';
@@ -100,7 +100,7 @@ const CardList = styled.div`
 `;
 
 interface IRoom {
-  time: [string];
+  times: [string];
   users: [string];
   desc: string;
   max: number;
@@ -144,13 +144,13 @@ class Home extends React.Component<RouteComponentProps, HomeState> {
         },
       });
       this.setState({
-        rooms: rooms.map(({ users, desc, id, max, name, time }: IRoom) => ({
+        rooms: rooms.map(({ users, desc, id, max, name, times }: IRoom) => ({
           desc,
           id,
           max,
           name,
+          times,
           current: users.length,
-          times: time,
         })),
       });
     } catch (err) {

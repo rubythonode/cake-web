@@ -140,7 +140,7 @@ type ApplyState = {
   name: string;
   pin: string;
   desc: string;
-  time: string;
+  times: [string];
 };
 
 class Apply extends React.Component<RouteComponentProps, ApplyState> {
@@ -163,7 +163,7 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
       max: 1,
       name: '',
       pin: '',
-      time: 'afsc1',
+      times: ['afsc1'],
     };
 
     this.onClickApply = this.onClickApply.bind(this);
@@ -171,21 +171,21 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
     this.onClickCard = this.onClickCard.bind(this);
     this.onClickNext = this.onClickNext.bind(this);
     this.onClickRoom = this.onClickRoom.bind(this);
-    this.onClickTime = this.onClickTime.bind(this);
     this.onOpenDialog = this.onOpenDialog.bind(this);
+    this.onToggleTime = this.onToggleTime.bind(this);
     this.onCloseDialog = this.onCloseDialog.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   public async onClickApply() {
-    const { year, room, month, day, max, name, desc, pin, time } = this.state;
+    const { year, room, month, day, max, name, desc, pin, times } = this.state;
     const payload = {
       desc,
       max,
       name,
       pin,
       room,
-      time,
+      times,
       date: timestamp.fromDate(new Date(year, month - 1, day)),
     };
     try {
@@ -226,10 +226,20 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
     this.onClickNext();
   }
 
-  public onClickTime(time: string) {
-    this.setState({
-      time,
-    });
+  public onToggleTime(time: string) {
+    const { times } = this.state;
+    if (times.includes(time)) {
+      this.setState((prevState: any) => ({
+        times: prevState.times.filter((item: any) => item !== time),
+      }));
+    } else {
+      // @ts-ignore
+      this.setState((prevState: any) => ({
+      // @ts-ignore
+        times: [...prevState.times, time],
+      // @ts-ignore
+      }));
+    }
   }
 
   public onOpenDialog() {
@@ -256,7 +266,7 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
   }
 
   public render() {
-    const { openDialog, step, year, month, day, max, name, pin, desc, time } = this.state;
+    const { openDialog, step, year, month, day, max, name, pin, desc, times } = this.state;
     return (
       <Layout tabIdx={1}>
         <Container>
@@ -322,9 +332,9 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
                     {timetable.map((t: { name: string, code: string }, idx: number) => (
                       <TimeButton
                         time={t.name}
-                        selected={time === t.code}
+                        selected={times.includes(t.code)}
                         key={`time-${idx}`}
-                        onClick={() => this.onClickTime(t.code)}
+                        onClick={() => this.onToggleTime(t.code)}
                       />
                     ))}
                   </FormValue>

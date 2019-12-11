@@ -39,7 +39,7 @@ yarn run dev
   room: '세미나실', // 요청하는 방
   pin: '1234', // 방 입장 시 필요한 패스워드
   date: Date(), // 사용할 날짜
-  time: 'afsc1', // 사용할 시간 ['afsc1', 'afsc2', 'night1', 'night2']
+  times: ['afsc1'], // 사용할 시간 ['afsc1', 'afsc2', 'night1', 'night2']
   max: 4, // 최대 참가 인원 수
   desc: '저희가요 교내 IT 공모전에 나가는데 오늘 코딩을 안하면 손에 가시가 돋아서 그만...', // 사유
   delegate: '507f1f77bcf86cd799439011', // 신청 대표자
