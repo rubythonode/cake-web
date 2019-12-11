@@ -34,10 +34,13 @@ router.post('/', expressAsyncHandler(async (req, res, _) => {
 
           const { id: newID }: { id: string } = newUser;
           const newToken: string = jwtSimple.encode({ newID }, jwtConfig.secret);
-          return res.json({ newID, newToken });
+          return res.json({
+            id: newID,
+            tokne: newToken,
+          });
         } catch (_) {
           // 디미고 계정에도 없으면
-          return res.status(404).json({
+          return res.status(400).json({
             message: '주어진 이메일의 사용자가 없습니다.',
           });
         }

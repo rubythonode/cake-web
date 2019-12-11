@@ -187,7 +187,6 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
       time,
       date: timestamp.fromDate(new Date(year, month - 1, day)),
     };
-    console.log(payload);
     return;
     this.onOpenDialog();
   }

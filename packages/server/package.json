@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && npm run serve",
-    "serve": "node dist",
-    "dev": "tsc-watch --project . --outDir ./dist --onSuccess \"nodemon ./dist\"",
+    "serve": "node dist/src",
+    "dev": "tsc-watch --project . --outDir ./dist --onSuccess \"nodemon ./dist/src\"",
     "lint": "tslint src/**/*.ts --fix"
   },
   "author": "JunhoYeo  <32605822+JunhoYeo@users.noreply.github.com>",
@@ -25,5 +25,9 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "request-promise-native": "^1.0.8"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.1",
+    "tsc-watch": "^4.0.0"
   }
 }

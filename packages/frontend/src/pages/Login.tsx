@@ -2,6 +2,8 @@ import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
+import api from '../api';
+
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
 import Title from '../components/Title';
@@ -88,7 +90,7 @@ const FormWrapper = styled.div`
   align-items: center;
 `;
 
-const Form = styled.form`
+const Form = styled.div`
   width: 390px;
   min-width: 400px;
   display: flex;
@@ -128,7 +130,7 @@ const SubmitButton = styled(Button)`
 `;
 
 type ILoginState = {
-  email: string;
+  username: string;
   password: string;
 };
 
@@ -137,19 +139,35 @@ class Login extends React.Component<RouteComponentProps, ILoginState> {
     super(props);
 
     this.state = {
-      email: '',
+      username: '',
       password: '',
     };
 
     this.onClickSubmit = this.onClickSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  public onClickSubmit() {
+  public async onClickSubmit() {
     const { history } = this.props;
-    history.push('/');
+    const { username, password } = this.state;
+
+    const res = await api.post('/auth/login', { username, password });
+    console.log(res);
+    // history.push('/');
+  }
+
+  public handleChange(event: React.SyntheticEvent) {
+    event.persist();
+    const { value, name }: { value: string, name: string } = event.target as HTMLInputElement;
+
+    this.setState({
+      [name]: value,
+    } as any);
   }
 
   public render() {
+    const { username, password } = this.state;
+
     return (
       <Container>
         <Illust />
@@ -158,8 +176,18 @@ class Login extends React.Component<RouteComponentProps, ILoginState> {
             <FormTitle>로그인</FormTitle>
             <Separator />
             <InputGroup>
-              <StyledTextInput placeholder="ENTER YOUR EMAIL" />
-              <StyledTextInput placeholder="ENTER YOUR PASSWORD" />
+              <StyledTextInput
+                name="username"
+                value={username}
+                onChange={this.handleChange}
+                placeholder="ENTER YOUR USERNAME"
+              />
+              <StyledTextInput
+                name="password"
+                value={password}
+                onChange={this.handleChange}
+                placeholder="ENTER YOUR PASSWORD"
+              />
             </InputGroup>
             <SubmitButton onClick={this.onClickSubmit}>
               로그인

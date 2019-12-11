@@ -3,6 +3,9 @@ import express from 'express';
 import morgan from 'morgan';
 import path from 'path';
 
+import auth from './middlewares/auth';
+import routes from './routes';
+
 const app: express.Application = express();
 
 app.use(cors());
@@ -10,6 +13,9 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/uploads', express.static(path.join(__dirname, '../../uploads')));
+
+app.use(auth().initialize());
+app.use('/', routes);
 
 interface IError extends Error {
   status: number;
