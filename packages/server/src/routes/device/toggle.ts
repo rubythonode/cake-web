@@ -10,7 +10,7 @@ router.post('/', expressAsyncHandler(async (req, res, _) => {
   const { room, user }: { room: string, user: string } = req.body;
   const isRoomExist: IRoomModel = await roomModel.findOne({
     $and: [
-      { _id: room },
+      { room },
       { approve: true },
       { users: user },
     ],
@@ -31,7 +31,7 @@ router.get('/', expressAsyncHandler(async (req, res, _) => {
   const { room, user }: { room: string, user: string } = req.query;
   const isRoomExist: IRoomModel = await roomModel.findOne({
     $and: [
-      { _id: room },
+      { room },
       { approve: true },
       { users: user },
     ],
