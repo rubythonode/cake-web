@@ -2,6 +2,8 @@ import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
+import api from '../api';
+
 import DialogModal from '../components/DialogModal';
 import Layout from '../components/Layout';
 import RoomCard, { IRoomCardProps } from '../components/RoomCard';
@@ -11,57 +13,6 @@ import filter from '../assets/shared/filter.svg';
 import goback from '../assets/shared/goback.svg';
 import gofront from '../assets/shared/gofront.svg';
 import search from '../assets/shared/search.svg';
-
-const exampleCardsData: IRoomCardProps[] = [
-  {
-    current: 2,
-    desc: '대회 준비',
-    id: '507f1f77bcf86cd799439011',
-    max: 4,
-    name: '방과후 교실',
-    times: ['방과후 1타임'],
-  },
-  {
-    current: 1,
-    desc: '시험 공부',
-    id: '507f1f77bcf86cd799439011',
-    max: 3,
-    name: '방과후 교실',
-    times: ['야자 1타임', '야자 2타임'],
-  },
-  {
-    current: 6,
-    desc: '하텍 동아리 연습',
-    id: '507f1f77bcf86cd799439011',
-    max: 7,
-    name: '음악실',
-    times: ['야자 1타임'],
-  },
-  {
-    current: 1,
-    desc: '음악 녹음',
-    id: '507f1f77bcf86cd799439011',
-    max: 1,
-    name: '크리에이티브 스튜디오',
-    times: ['야자 1타임'],
-  },
-  {
-    current: 1,
-    desc: '개발자 구조 요청',
-    id: '507f1f77bcf86cd799439011',
-    max: 1,
-    name: '멀티미디어실',
-    times: ['야자 2타임'],
-  },
-  {
-    current: 3,
-    desc: '토론 연습',
-    id: '507f1f77bcf86cd799439011',
-    max: 3,
-    name: '세미나실',
-    times: ['야자 1타임'],
-  },
-];
 
 const exampleRoomData = {
   delegate: '이혜원',
@@ -74,6 +25,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
 `;
 
 const Header = styled.div`
@@ -147,9 +99,21 @@ const CardList = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(280px, auto));
 `;
 
+interface IRoom {
+  time: [string];
+  users: [string];
+  desc: string;
+  max: number;
+  name: string;
+  room: string;
+  date: number;
+  id: string;
+}
+
 type HomeState = {
   openDialog: boolean,
   openModal: boolean,
+  rooms: any,
 };
 
 class Home extends React.Component<RouteComponentProps, HomeState> {
@@ -159,6 +123,7 @@ class Home extends React.Component<RouteComponentProps, HomeState> {
     this.state = {
       openDialog: false,
       openModal: false,
+      rooms: [],
     };
 
     this.onClickApply = this.onClickApply.bind(this);
@@ -168,6 +133,28 @@ class Home extends React.Component<RouteComponentProps, HomeState> {
     if (!localStorage.getItem('token')) {
       const { history } = this.props;
       history.push('/login');
+    }
+  }
+
+  public async componentDidMount() {
+    try {
+      const { data: { rooms } } = await api.get('/room', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      this.setState({
+        rooms: rooms.map(({ users, desc, id, max, name, time }: IRoom) => ({
+          desc,
+          id,
+          max,
+          name,
+          current: users.length,
+          times: time,
+        })),
+      });
+    } catch (err) {
+      window.alert(err);
     }
   }
 
@@ -189,7 +176,8 @@ class Home extends React.Component<RouteComponentProps, HomeState> {
   }
 
   public render() {
-    const { openDialog, openModal } = this.state;
+    const { rooms, openDialog, openModal } = this.state;
+    console.log(rooms);
 
     return (
       <Layout tabIdx={0}>
@@ -210,12 +198,12 @@ class Home extends React.Component<RouteComponentProps, HomeState> {
             </Search>
           </Tools>
           <CardList>
-            {exampleCardsData.map((room: IRoomCardProps, idx: number) =>
+            {rooms.map((room: any, idx: number) =>
               <RoomCard
                 key={idx}
                 onClick={this.onToggleModal}
                 {...room}
-              />,
+              />
             )}
           </CardList>
         </Container>

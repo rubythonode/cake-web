@@ -36,7 +36,7 @@ const roomSchema: Schema = new mongoose.Schema({
   name: { type: String, required: true },
   pin: { type: String, required: true },
   room: { type: String, required: true },
-  time: { type: String, required: true },
+  time: { type: [String], required: true },
   users: { type: [String], default: [] },
 });
 
@@ -45,6 +45,7 @@ roomSchema.statics.createRoom = async (roomPayload: IRoomPayload, delegateID: st
     ...roomPayload,
     ...{ delegate: delegateID },
   });
+  newRoom.users.push(delegateID);
   const savedRoom: IRoomModel = await newRoom.save();
   return savedRoom;
 };
@@ -56,7 +57,7 @@ roomSchema.methods.toJSON = function (): any {
     delete obj[key];
   });
   obj.room = getRoomByCode(obj.room);
-  obj.time = getTimeByCode(obj.time);
+  obj.time = obj.time.map((v: string) => getTimeByCode(v));
   return obj;
 };
 
