@@ -24,7 +24,26 @@ router.post('/', expressAsyncHandler(async (req, res, _) => {
     });
   }
 
-  // TODO: toggle firebase realtime DB
+  return res.sendStatus(isRoomExist ? 200 : 404);
+}));
+
+router.get('/', expressAsyncHandler(async (req, res, _) => {
+  const { room, user }: { room: string, user: string } = req.query;
+  const isRoomExist: IRoomModel = await roomModel.findOne({
+    $and: [
+      { _id: room },
+      { approve: true },
+      { users: user },
+    ],
+  });
+
+  if (isRoomExist) {
+    const db: any = admin.database();
+    const ref: any = db.ref(`/rooms/${room}`);
+    ref.once('value', (snapshot: any) => {
+      ref.set(!snapshot.val());
+    });
+  }
 
   return res.sendStatus(isRoomExist ? 200 : 404);
 }));
