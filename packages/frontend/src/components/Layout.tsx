@@ -37,12 +37,20 @@ export default class Layout extends React.Component<LayoutProps, LayoutState> {
   }
 
   public componentDidMount() {
-    const { serial = '0000', name } = JSON.parse(localStorage.getItem('user'));
-    this.setState({
-      name,
-      grade: serial[0],
-      klass: serial[1],
-    });
+    try {
+      const { serial, name } = JSON.parse(localStorage.getItem('user'));
+      this.setState({
+        name,
+        grade: serial[0],
+        klass: serial[1],
+      });
+    } catch (_) {
+      this.setState({
+        grade: 1,
+        klass: 1,
+        name: '선생님',
+      });
+    }
   }
 
   public render() {

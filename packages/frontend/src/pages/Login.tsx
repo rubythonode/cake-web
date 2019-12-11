@@ -156,6 +156,12 @@ class Login extends React.Component<RouteComponentProps, ILoginState> {
     const { history } = this.props;
     const { username, password } = this.state;
 
+    // 임시로 구현한 교사 인증
+    if (username === 'teacher' && password === 'teacher') {
+      history.push('/teacher');
+      return;
+    }
+
     const { data: { token, user } } = await api.post('/auth/login', { username, password });
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));

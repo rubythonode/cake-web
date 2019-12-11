@@ -20,9 +20,11 @@ export interface IRoomModel extends IRoom {
   created: Date;
   delegate: string;
   users: string[];
+  approve: boolean;
 }
 
 const roomSchema: Schema = new mongoose.Schema({
+  approve: { type: Boolean, default: false },
   created: { type: Date, default: Date.now },
   date: { type: Number, required: true },
   delegate: { type: String, required: true },

@@ -11,6 +11,7 @@ router.post('/', expressAsyncHandler(async (req, res, _) => {
   const isRoomExist: IRoomModel = await roomModel.findOne({
     $and: [
       { _id: room },
+      { approve: true },
       { users: user },
     ],
   });
