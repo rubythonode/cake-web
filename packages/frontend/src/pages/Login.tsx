@@ -139,21 +139,27 @@ class Login extends React.Component<RouteComponentProps, ILoginState> {
     super(props);
 
     this.state = {
-      username: '',
       password: '',
+      username: '',
     };
 
     this.onClickSubmit = this.onClickSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+
+    if (localStorage.getItem('token')) {
+      const { history } = this.props;
+      history.push('/');
+    }
   }
 
   public async onClickSubmit() {
     const { history } = this.props;
     const { username, password } = this.state;
 
-    const res = await api.post('/auth/login', { username, password });
-    console.log(res);
-    // history.push('/');
+    const { data: { token, user } } = await api.post('/auth/login', { username, password });
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', user);
+    history.push('/');
   }
 
   public handleChange(event: React.SyntheticEvent) {
@@ -184,6 +190,7 @@ class Login extends React.Component<RouteComponentProps, ILoginState> {
               />
               <StyledTextInput
                 name="password"
+                type="password"
                 value={password}
                 onChange={this.handleChange}
                 placeholder="ENTER YOUR PASSWORD"

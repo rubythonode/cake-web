@@ -110,6 +110,12 @@ interface IHeaderProps extends IUserInfoProps {
   tabIdx: number;
 }
 
+const onClickLogout = (history: any) => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+  history.push('/login');
+};
+
 const Header: React.FC<IHeaderProps & RouteComponentProps> = ({ tabIdx, user, history }) => {
   return (
     <Container>
@@ -129,7 +135,7 @@ const Header: React.FC<IHeaderProps & RouteComponentProps> = ({ tabIdx, user, hi
       </TabList>
       <UserContainer>
         <UserInfo user={user} />
-        <Logout src={logout} onClick={() => history.push('/login')} />
+        <Logout src={logout} onClick={() => onClickLogout(history)} />
       </UserContainer>
     </Container>
   );

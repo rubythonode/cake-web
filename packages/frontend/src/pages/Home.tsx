@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
 import DialogModal from '../components/DialogModal';
@@ -151,7 +152,7 @@ type HomeState = {
   openModal: boolean,
 };
 
-export default class Home extends React.Component<{}, HomeState> {
+class Home extends React.Component<RouteComponentProps, HomeState> {
   constructor(props: any) {
     super(props);
 
@@ -163,6 +164,11 @@ export default class Home extends React.Component<{}, HomeState> {
     this.onClickApply = this.onClickApply.bind(this);
     this.onToggleDialog = this.onToggleDialog.bind(this);
     this.onToggleModal = this.onToggleModal.bind(this);
+
+    if (!localStorage.getItem('token')) {
+      const { history } = this.props;
+      history.push('/login');
+    }
   }
 
   public onClickApply() {
@@ -228,3 +234,5 @@ export default class Home extends React.Component<{}, HomeState> {
     );
   }
 }
+
+export default withRouter<RouteComponentProps<any>, any>(Home);

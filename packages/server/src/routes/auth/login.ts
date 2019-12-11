@@ -35,8 +35,8 @@ router.post('/', expressAsyncHandler(async (req, res, _) => {
           const { id: newID }: { id: string } = newUser;
           const newToken: string = jwtSimple.encode({ newID }, jwtConfig.secret);
           return res.json({
-            id: newID,
-            tokne: newToken,
+            token: newToken,
+            user: newUser,
           });
         } catch (_) {
           // 디미고 계정에도 없으면
@@ -55,7 +55,7 @@ router.post('/', expressAsyncHandler(async (req, res, _) => {
 
       const { id }: { id: string } = user;
       const token: string = jwtSimple.encode({ id }, jwtConfig.secret);
-      return res.json({ id, token });
+      return res.json({ user, token });
     });
 }));
 
