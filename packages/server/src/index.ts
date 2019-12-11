@@ -3,14 +3,14 @@ import mongoose from 'mongoose';
 import app from './app';
 
 // tslint:disable-next-line:import-name
-import * as admin from "firebase-admin";
+import * as admin from 'firebase-admin';
 // tslint:disable-next-line:import-name
 import serviceAccount from './firebase.key.json';
 
 admin.initializeApp({
   // @ts-ignore
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://icicle-cake.firebaseio.com'
+  databaseURL: 'https://icicle-cake.firebaseio.com',
 });
 
 const PORT: number | string = process.env.PORT || 5000;
@@ -22,7 +22,7 @@ const PORT: number | string = process.env.PORT || 5000;
   });
 
 mongoose.connect(
-  'mongodb://localhost:27017/test',
+  'mongodb://user:dkanakf10@ds253398.mlab.com:53398/cakee',
   { useNewUrlParser: true },
   (err) => {
     if (err) {

@@ -110,6 +110,7 @@ type HomeState = {
   openModal: boolean,
   room: any,
   rooms: any,
+  user: any,
 };
 
 class Home extends React.Component<RouteComponentProps, HomeState> {
@@ -123,6 +124,11 @@ class Home extends React.Component<RouteComponentProps, HomeState> {
         desc: '',
       },
       rooms: [],
+      user: {
+        grade: 0,
+        klass: 0,
+        name: '',
+      },
     };
 
     this.onClickApply = this.onClickApply.bind(this);
@@ -154,7 +160,8 @@ class Home extends React.Component<RouteComponentProps, HomeState> {
         })),
       });
     } catch (err) {
-      window.alert(err);
+      // window.alert(err);
+      console.error(err);
     }
   }
 

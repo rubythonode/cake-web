@@ -158,7 +158,7 @@ class Login extends React.Component<RouteComponentProps, ILoginState> {
 
     const { data: { token, user } } = await api.post('/auth/login', { username, password });
     localStorage.setItem('token', token);
-    localStorage.setItem('user', user);
+    localStorage.setItem('user', JSON.stringify(user));
     history.push('/');
   }
 

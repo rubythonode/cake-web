@@ -196,7 +196,8 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
       });
       this.onOpenDialog();
     } catch (err) {
-      window.alert(err);
+      // window.alert(err);
+      console.error(err);
     }
   }
 
