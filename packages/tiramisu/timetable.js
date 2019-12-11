@@ -5,4 +5,4 @@ const timetable = [
   { name: '야자 2타임', code: 'night2' },
 ];
 
-export default timetable;
+module.exports = timetable;

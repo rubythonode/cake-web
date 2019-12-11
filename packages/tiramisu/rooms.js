@@ -9,4 +9,4 @@ const rooms = {
   세미나실: '1102',
 };
 
-export default rooms;
+module.exports = rooms;

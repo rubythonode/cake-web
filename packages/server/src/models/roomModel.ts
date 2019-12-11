@@ -1,10 +1,18 @@
 import mongoose, { Model, Schema } from 'mongoose';
+import { utils } from 'tiramisu';
+
+interface IUtils {
+  getRoomByCode: (code: string) => string;
+  getTimeByCode: (code: string) => string;
+}
+
+const { getRoomByCode, getTimeByCode }: IUtils = utils;
 
 export interface IRoomPayload {
   name: string;
   pin: string;
   room: string;
-  date: Date;
+  date: number;
   time: 'afsc1' | 'afsc2' | 'night1' | 'night2';
   max: number;
   desc: string;
@@ -21,7 +29,7 @@ export interface IRoomModel extends IRoom {
 
 const roomSchema: Schema = new mongoose.Schema({
   created: { type: Date, default: Date.now },
-  date: { type: Date, required: true },
+  date: { type: Number, required: true },
   delegate: { type: String, required: true },
   desc: { type: String, required: true },
   max: { type: Number, required: true },
@@ -47,6 +55,8 @@ roomSchema.methods.toJSON = function (): any {
   ['_id', '__v'].map((key) => {
     delete obj[key];
   });
+  obj.room = getRoomByCode(obj.room);
+  obj.time = getTimeByCode(obj.time);
   return obj;
 };
 
