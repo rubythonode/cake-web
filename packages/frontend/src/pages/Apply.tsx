@@ -4,8 +4,8 @@ import Switch, { Case, Default } from 'react-switch-case';
 import styled from 'styled-components';
 import timestamp from 'unix-timestamp';
 
-import { rooms as roomCodes, timetable } from 'tiramisu';
 import api from '../api';
+import { rooms as roomCodes, timetable } from '../tiramisu';
 
 import Button from '../components/Button';
 import DialogModal from '../components/DialogModal';
@@ -221,6 +221,7 @@ class Apply extends React.Component<RouteComponentProps, ApplyState> {
 
   public onClickRoom(room: string) {
     this.setState({
+      // @ts-ignore
       room: roomCodes[room],
     });
     this.onClickNext();

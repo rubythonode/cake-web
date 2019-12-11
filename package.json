@@ -24,7 +24,6 @@
   },
   "dependencies": {
     "frontend": "file:packages/frontend",
-    "server": "file:packages/server",
-    "tiramisu": "file:packages/tiramisu"
+    "server": "file:packages/server"
   }
 }

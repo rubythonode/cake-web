@@ -27,9 +27,5 @@
     "passport-jwt": "^4.0.0",
     "request-promise-native": "^1.0.8",
     "unix-timestamp": "^0.2.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.1",
-    "tsc-watch": "^4.0.0"
   }
 }

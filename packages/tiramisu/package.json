@@ -1,7 +1,0 @@
-{
-  "name": "tiramisu",
-  "version": "1.0.0",
-  "description": "sweet utils for cake",
-  "main": "index.js",
-  "license": "MIT"
-}

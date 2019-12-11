@@ -1,14 +1,7 @@
 import mongoose, { Model, Schema } from 'mongoose';
-import { utils } from 'tiramisu';
+import { getRoomByCode, getTimeByCode } from '../utils/tiramisu';
 
 import userModel, { IUserModel } from './userModel';
-
-interface IUtils {
-  getRoomByCode: (code: string) => string;
-  getTimeByCode: (code: string) => string;
-}
-
-const { getRoomByCode, getTimeByCode }: IUtils = utils;
 
 export interface IRoomPayload {
   name: string;
