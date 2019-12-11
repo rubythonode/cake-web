@@ -53,9 +53,32 @@
 ```
 
 ### 자신이 참여한 방 목록 가져오기
-- GET `/room`
+- GET `/room/mine`
 - 헤더 `Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG...`
 - 나머지 위와 동일
+
+### 모바일 query로 방 참여자 실명 및 학번까지 보기
+- GET `/room?mobile=true` 또는 GET `/room/mine?mobile=true`
+- 헤더 `Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG...`
+- 나머지 위와 동일
+
+```json
+{
+  "rooms": [
+    {
+      "times": ["방과후 1타임", "방과후 2타임"],
+      "users": [{ "name": "여준호", "serial": "1520", "id": "5df0d7f66a03937eb21b024e" },
+                { "name": "민승현", "serial": "1409", "id": "5df1095b6a03937eb21b024f" }],
+      "desc": "대회 준비 할 사람 모여라~",
+      "max": 3,
+      "name": "대회 준비",
+      "room": "북카페",
+      "date": 1575990000000,
+      "id": "5df0d99588cc637ae1df4a66"
+    },
+  ]
+}
+```
 
 ### 방 상세 정보 가져오기
 - GET `/room/{roomID}`
@@ -91,7 +114,7 @@
 - 참가 성공시 `200`, 에러 발생 시 그 외의 코드
 
 ### 교사 관련
-- 하는중임
+🔥🔥🔥
 
 ### 문 열기
 - POST `/device/toggle`

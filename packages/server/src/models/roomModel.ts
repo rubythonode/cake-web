@@ -62,3 +62,14 @@ roomSchema.methods.toJSON = function (): any {
 const roomModel: Model<IRoomModel> = mongoose.model<IRoomModel>('Room', roomSchema);
 
 export default roomModel;
+
+type RoomToMobile = (room: IRoomModel) => any;
+
+export const roomToMobile: RoomToMobile = async (room: IRoomModel) => {
+  const users: IUserModel[] = await Promise.all(
+    room.users.map(async (u: string) =>
+      await userModel.findOne({ uid: u }).select('name serial'),
+    ),
+  );
+  return { ...room.toJSON(), users };
+};
