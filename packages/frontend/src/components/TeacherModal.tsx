@@ -60,10 +60,28 @@ const Desc = styled.p`
   word-break: keep-all;
 `;
 
-const SubmitButton = styled(Button)`
-  margin-top: 1.5rem;
+const ButtonContainer = styled.div`
+  display: flex;
+`;
+
+const DeclineButton = styled(Button)`
   margin-bottom: 0.2rem;
-  width: 8rem;
+  width: 220px;
+  margin-right: 1.5rem;
+  border-radius: 37px;
+  border: solid 1px #505050;
+  background: white;
+  color: #505050;
+  font-weight: 300;
+`;
+
+const SubmitButton = styled(Button)`
+  margin-bottom: 0.2rem;
+  width: 220px;
+  border-radius: 37px;
+  background: #505050;;
+  color: white;
+  font-weight: 300;
 `;
 
 export interface ITeacherModalProps extends IModalProps {
@@ -93,7 +111,10 @@ const TeacherModal: React.FC<ITeacherModalProps> =
         <Main>
           <Delegate>{`대표자: ${delegate}`}</Delegate>
           <Desc dangerouslySetInnerHTML={ { __html: desc.replace(/(\n)+/g, '<br />') } } />
-          <SubmitButton onClick={onClick}>승인하기</SubmitButton>
+          <ButtonContainer>
+            <DeclineButton>불허</DeclineButton>
+            <SubmitButton onClick={onClick}>승인</SubmitButton>
+          </ButtonContainer>
         </Main>
       </Modal>
     );
