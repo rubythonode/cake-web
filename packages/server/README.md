@@ -70,23 +70,127 @@ yarn run dev
 
 - 회원가입 절차 없이 바로 디미고 통합 아이디를 통해 로그인할 수 있도록 합니다.
 
-## 🔥 Routes
-전체 API에 존재하는 라우트들입니다.
+## 🔥 API 문서
 
-### Auth API
-인증을 처리합니다.
+### 로그인
+- POST `/auth/login`
 
-#### Login
-디미고 아이디(또는 이미 등록된 이메일)와 패스워드로 로그인하고, JWT 토큰과 함께 UID를 반환합니다.
+```json
+{"username":"hanaro0704","password":"#include0704"}
+```
 
-### Device API
+```json
+{
+  "user":{
+    "email":"hanaro0704@naver.com",
+    "name":"여준호",
+    "serial":"1520",
+    "username":"hanaro0704",
+    "type":"S",
+    "uid":"4C1B2290",
+    "joined":"2019-12-11T11:50:15.001Z",
+    "id":"5df0d7f66a03937eb21b024e"
+  },"token":"eyJ0eXAiOiJKV1QiLCJh..."
+}
+```
 
-#### Toggle
-디바이스 또는 앱으로부터 UID와 Room ID를 받아, 리얼타임 DB의 해당 Room ID의 state를 토글합니다.
+### 방 목록 가져오기
+- GET `/room`
+- 헤더 `Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG...`
 
-### Room API
+```js
+{
+  "rooms":[
+    {
+      "times":["방과후 1타임","방과후 2타임"],
+      "users":["4C1B2290"], // 개수 세서 현재 들어온 사람 몇 명인지 구하기
+      "desc":"대회 준비 할 사람 모여라~",
+      "max":3,
+      "name":"대회 준비",
+      "room":"북카페",
+      "date":1575990000000,
+      "id":"5df0d99588cc637ae1df4a66"
+    }
+  ]
+}
+```
 
-#### 방 생성
-#### 방 가입
-#### 방 조회
-#### 방 승인
+### 자신이 참여한 방 목록 가져오기
+- GET `/room/mine`
+- 헤더 `Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG...`
+- 나머지 위와 동일
+
+### 모바일 query로 방 참여자 실명 및 학번까지 보기
+- GET `/room?mobile=true` 또는 GET `/room/mine?mobile=true`
+- 헤더 `Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG...`
+- 나머지 위와 동일
+
+```json
+{
+  "rooms": [
+    {
+      "times": ["방과후 1타임", "방과후 2타임"],
+      "users": [{ "name": "여준호", "serial": "1520", "id": "5df0d7f66a03937eb21b024e" },
+                { "name": "민승현", "serial": "1409", "id": "5df1095b6a03937eb21b024f" }],
+      "desc": "대회 준비 할 사람 모여라~",
+      "max": 3,
+      "name": "대회 준비",
+      "room": "북카페",
+      "date": 1575990000000,
+      "id": "5df0d99588cc637ae1df4a66"
+    },
+  ]
+}
+```
+
+### 방 상세 정보 가져오기
+- GET `/room/{roomID}`
+- 예시: `/room/5df0d99588cc637ae1df4a66`
+- 헤더 `Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG...`
+
+```json
+{
+  "room":{
+    "times":["방과후 1타임","방과후 2타임"],
+    "users":["4C1B2290"],
+    "desc":"대회 준비 할 사람 모여라~",
+    "max":3,
+    "name":"대회 준비",
+    "room":"북카페",
+    "date":1575990000000,
+    "delegate":"여준호",
+    "id":"5df0d99588cc637ae1df4a66"
+  }
+}
+```
+
+### 방 신청하기
+- POST `/room/{roomID}`
+- 예시: `/room/5df0d99588cc637ae1df4a66`
+- 헤더 `Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbG...`
+
+```json
+{"pin": "1234"}
+```
+
+- 방의 ID와 PIN 번호를 통해 인증
+- 참가 성공시 `200`, 에러 발생 시 그 외의 코드
+
+### 교사 관련
+🔥🔥🔥
+
+### 문 열기
+- POST `/device/toggle`
+
+```json
+{"room": "0101","user": "4C1B2290"}
+```
+
+- 위와 같은 페이로드를 보내면 열 수 있을 때 status `200` 주고 못 열면 그 외의 코드를 줌.
+- `200` 뜨면 파베 값 토글함.
+
+- ~~일단 교사 인증은 고려하지 않음~~ 고려함
+
+### 문 열기 임베디드 버전
+- GET `/device/toggle?room=0101&user=4C1B2290`
+- 이런 식으로 똑같이 작동
