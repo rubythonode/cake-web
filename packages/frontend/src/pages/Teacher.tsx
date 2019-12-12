@@ -151,7 +151,8 @@ class Teacher extends React.Component<RouteComponentProps, TeacherState> {
     try {
       const { data: { rooms } } = await api.get('/teacher');
       this.setState({
-        rooms: rooms.map(({ users, desc, id, max, name, times }: IRoom) => ({
+        rooms: rooms.map(({ approve, users, desc, id, max, name, times }: IRoom) => ({
+          approve,
           desc,
           id,
           max,
@@ -246,6 +247,7 @@ class Teacher extends React.Component<RouteComponentProps, TeacherState> {
             {rooms.map((r: any, idx: number) =>
               <RoomCard
                 key={idx}
+                teacher={true}
                 onClick={() => this.onOpenModal(r.id)}
                 {...r}
               />,

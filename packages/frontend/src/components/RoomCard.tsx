@@ -77,6 +77,28 @@ const StatusButton = styled(Button)<StatusButtonProps>`
   `}
 `;
 
+type ApplyStatusButtonProps = {
+  approve: boolean;
+};
+
+const ApplyStatusButton = styled(Button)<ApplyStatusButtonProps>`
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: 8px;
+  padding-left: 8px;
+  width: 173px;
+  height: 61px;
+  margin: 0 auto;
+  line-height: 1;
+
+  ${({ approve }) => approve && css`
+    border-radius: 37px;
+    border: solid 1px #ff00aa;
+    background: #ffffff !important;
+    color: #ff00aa;
+  `}
+`;
+
 export interface IRoomCardProps {
   id: string;
   times: string[];
@@ -84,35 +106,52 @@ export interface IRoomCardProps {
   desc: string;
   current: number;
   max: number;
+  approve?: boolean;
+  teacher?: boolean;
   onClick?: (event: React.MouseEvent<HTMLElement>) => any;
 }
 
-const RoomCard: React.FC<IRoomCardProps> = ({ id, times, name, desc, current, max, onClick }) => {
-  return (
-    <Container>
-      <Wrapper>
-        <TimeList>
-          {times.map((time: string, idx: number) => {
-            return (
-              <Time key={`time-${id}-${idx}`}>
-                {time}
-              </Time>
-            );
-          })}
-        </TimeList>
-        <Name>{name}</Name>
-        <BottomContainer>
-          <Desc>{desc}</Desc>
-          <StatusButton
-            full={current === max}
-            onClick={onClick}
-          >
-            {`${current} / ${max}`}
-          </StatusButton>
-        </BottomContainer>
-      </Wrapper>
-    </Container>
-  );
-};
+const RoomCard: React.FC<IRoomCardProps> =
+  ({ id, times, name, desc, current, max, approve = false, onClick, teacher = false }) => {
+    return (
+      <Container>
+        <Wrapper>
+          <TimeList>
+            {times.map((time: string, idx: number) => {
+              return (
+                <Time key={`time-${id}-${idx}`}>
+                  {time}
+                </Time>
+              );
+            })}
+          </TimeList>
+          <Name>{name}</Name>
+          <BottomContainer>
+            <Desc>{desc}</Desc>
+            {(() => {
+              if (teacher) {
+                return (
+                  <ApplyStatusButton
+                    approve={approve}
+                    onClick={onClick}
+                  >
+                    { approve ? '승인됨' : '승인 안됨' }
+                  </ApplyStatusButton>
+                );
+              }
+              return (
+                <StatusButton
+                  full={current === max}
+                  onClick={onClick}
+                >
+                  {`${current} / ${max}`}
+                </StatusButton>
+              );
+            })()}
+          </BottomContainer>
+        </Wrapper>
+      </Container>
+    );
+  };
 
 export default RoomCard;

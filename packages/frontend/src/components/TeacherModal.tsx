@@ -111,10 +111,16 @@ const TeacherModal: React.FC<ITeacherModalProps> =
         <Main>
           <Delegate>{`대표자: ${delegate}`}</Delegate>
           <Desc dangerouslySetInnerHTML={ { __html: desc.replace(/(\n)+/g, '<br />') } } />
-          <ButtonContainer>
-            <DeclineButton>불허</DeclineButton>
-            <SubmitButton onClick={onClick}>승인</SubmitButton>
-          </ButtonContainer>
+          {(() => {
+            if (!room.approve) {
+              return (
+                <ButtonContainer>
+                  <DeclineButton>불허</DeclineButton>
+                  <SubmitButton onClick={onClick}>승인</SubmitButton>
+                </ButtonContainer>
+              );
+            }
+          })()}
         </Main>
       </Modal>
     );
